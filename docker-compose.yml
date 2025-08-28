@@ -1,0 +1,51 @@
+# docker-compose.yml (MySQL & phpMyAdmin only)
+
+version: '3.8'
+
+services:
+  #--- Service สำหรับ Database (MySQL) ---#
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: monkey_island_quiz          # ชื่อฐานข้อมูลเริ่มต้น
+      MYSQL_ROOT_PASSWORD: mysecretpassword # สำคัญ: รหัสผ่านของ root
+      MYSQL_USER: admin                  # user ที่จะสร้างขึ้นใหม่ (optional)
+      MYSQL_PASSWORD: 123456            # รหัสผ่านของ user ใหม่ (optional)
+    ports:
+      # Map port 33066 ของเครื่องเราไปยัง port 3306 ของ container
+      - "33066:3306"
+    volumes:
+      # เก็บข้อมูลของ MySQL ไว้ข้างนอก container เพื่อไม่ให้ข้อมูลหาย
+      - db-data:/var/lib/mysql
+    networks:
+      - db-network
+
+  #--- Service สำหรับ phpMyAdmin ---#
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin_service
+    restart: unless-stopped
+    ports:
+      # Map port 8080 ของเครื่องเราไปยัง port 80 ของ container
+      - "8080:80"
+    environment:
+      PMA_HOST: db # <-- สำคัญมาก: บอกให้ phpMyAdmin เชื่อมต่อไปที่ service 'db'
+      MYSQL_ROOT_PASSWORD: mysecretpassword # <-- ต้องตรงกับรหัสผ่านของ root ใน service 'db'
+    networks:
+      - db-network
+    depends_on:
+      - db # รอให้ service 'db' เริ่มทำงานก่อน
+
+#--- Docker Networks ---#
+# สร้าง network เพื่อให้ container สองตัวนี้คุยกันได้
+networks:
+  db-network:
+    driver: bridge
+
+#--- Docker Volumes ---#
+# สร้าง volume สำหรับเก็บข้อมูลฐานข้อมูลอย่างถาวร
+volumes:
+  db-data:
+    driver: local

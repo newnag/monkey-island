@@ -1,0 +1,1561 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class QuestionSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $questions = [
+            // ภาษาไทย (Subject ID: 1) - 30 ข้อ
+            
+            // Easy Level (10 ข้อ)
+            [
+                'subject_id' => 1,
+                'question_text' => 'ข้อใดเป็นคำกริยา',
+                'option_a' => 'วิ่ง',
+                'option_b' => 'สวย',
+                'option_c' => 'บ้าน',
+                'option_d' => 'น้ำ',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นคำนาม',
+                'option_a' => 'เดิน',
+                'option_b' => 'หนังสือ',
+                'option_c' => 'เร็ว',
+                'option_d' => 'อ่าน',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => '"แมว" เป็นคำประเภทใด',
+                'option_a' => 'คำนาม',
+                'option_b' => 'คำกริยา',
+                'option_c' => 'คำคุณศัพท์',
+                'option_d' => 'คำวิเศษณ์',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำว่า "กิน" เป็นคำประเภทใด',
+                'option_a' => 'คำนาม',
+                'option_b' => 'คำกริยา',
+                'option_c' => 'คำคุณศัพท์',
+                'option_d' => 'คำสรรพนาม',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'ข้อใดเป็นคำคุณศัพท์',
+                'option_a' => 'นั่ง',
+                'option_b' => 'โต๊ะ',
+                'option_c' => 'สวย',
+                'option_d' => 'เขียน',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดสะกดถูกต้อง',
+                'option_a' => 'เรียน',
+                'option_b' => 'เรีน',
+                'option_c' => 'เร่ียน',
+                'option_d' => 'เรัียน',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำว่า "มา" มีกี่พยางค์',
+                'option_a' => '1 พยางค์',
+                'option_b' => '2 พยางค์',
+                'option_c' => '3 พยางค์',
+                'option_d' => '4 พยางค์',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'วรรณยุกต์สามัญคืออะไร',
+                'option_a' => '่',
+                'option_b' => '้',
+                'option_c' => '๊',
+                'option_d' => 'ไม่มีวรรณยุกต์',
+                'correct_answer' => 'd',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นสรรพนาม',
+                'option_a' => 'บ้าน',
+                'option_b' => 'เขา',
+                'option_c' => 'วิ่ง',
+                'option_d' => 'สวย',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'ประโยคใดถูกต้อง',
+                'option_a' => 'เขาไป โรงเรียน',
+                'option_b' => 'เขาไปโรงเรียน',
+                'option_c' => 'เขา ไปโรงเรียน',
+                'option_d' => 'เขาไปโรง เรียน',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            
+            // Medium Level (10 ข้อ)
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำว่า "สุขภาพ" มีกี่พยางค์',
+                'option_a' => '1 พยางค์',
+                'option_b' => '2 พยางค์',
+                'option_c' => '3 พยางค์',
+                'option_d' => '4 พยางค์',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นคำซ้อน',
+                'option_a' => 'เดินเล่น',
+                'option_b' => 'เดิน',
+                'option_c' => 'ไปมา',
+                'option_d' => 'นั่งเล่น',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นคำราชาศัพท์',
+                'option_a' => 'กิน',
+                'option_b' => 'เสวย',
+                'option_c' => 'ทาน',
+                'option_d' => 'รับประทาน',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'วรรณยุกต์เอก คือ',
+                'option_a' => '่',
+                'option_b' => '้',
+                'option_c' => '๊',
+                'option_d' => '๋',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำว่า "ปลิงปลิง" เป็นคำประเภทใด',
+                'option_a' => 'คำเลียนเสียง',
+                'option_b' => 'คำคุณศัพท์',
+                'option_c' => 'คำกริยา',
+                'option_d' => 'คำนาม',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดสะกดถูกต้อง',
+                'option_a' => 'อนาคต',
+                'option_b' => 'อะนาคต',
+                'option_c' => 'อนาคด',
+                'option_d' => 'อนาขต',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นคำผสม',
+                'option_a' => 'รถไฟ',
+                'option_b' => 'รถ',
+                'option_c' => 'ไฟ',
+                'option_d' => 'วิ่ง',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'ประโยคใดใช้ภาษาถูกต้อง',
+                'option_a' => 'ฉันไปที่โรงเรียน',
+                'option_b' => 'ฉันไปโรงเรียน',
+                'option_c' => 'ฉันไปในโรงเรียน',
+                'option_d' => 'ทั้งหมดถูก',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นอุทาน',
+                'option_a' => 'อ๋อ',
+                'option_b' => 'แล้ว',
+                'option_c' => 'จริง',
+                'option_d' => 'ใช่',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นคำบอกทิศทาง',
+                'option_a' => 'ใต้',
+                'option_b' => 'เมื่อไหร่',
+                'option_c' => 'ใคร',
+                'option_d' => 'อะไร',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            
+            // Hard Level (10 ข้อ)
+            [
+                'subject_id' => 1,
+                'question_text' => 'ข้อใดเป็นสำนวน',
+                'option_a' => 'ไก่ป่าเห็นเล้า',
+                'option_b' => 'นกบินไปในท้องฟ้า',
+                'option_c' => 'แมวนั่งบนโต๊ะ',
+                'option_d' => 'ปลาว่ายในน้ำ',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'สำนวน "เอาเท้าเข้าไปขัด" หมายความว่าอะไร',
+                'option_a' => 'ยุ่งเรื่องของคนอื่น',
+                'option_b' => 'เดินเร็ว',
+                'option_c' => 'ล้มลง',
+                'option_d' => 'วิ่งหนี',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำโบราณใดหมายถึง "น้ำ"',
+                'option_a' => 'สลิล',
+                'option_b' => 'อุทก',
+                'option_c' => 'วารี',
+                'option_d' => 'ทั้งหมดถูก',
+                'correct_answer' => 'd',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นปฏิเสธของ "มา"',
+                'option_a' => 'ไป',
+                'option_b' => 'ไม่มา',
+                'option_c' => 'กลับ',
+                'option_d' => 'หยุด',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'กวีนิพนธ์ "พระราชนิพนธ์ในพระบาทสมเด็จพระจอมเกล้าเจ้าอยู่หัว" เขียนเรื่องอะไร',
+                'option_a' => 'เรื่องสงคราม',
+                'option_b' => 'เรื่องความรัก',
+                'option_c' => 'เรื่องปรัชญา',
+                'option_d' => 'เรื่องธรรมชาติ',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดเป็นคำไทยแท้',
+                'option_a' => 'กบ',
+                'option_b' => 'กระดาษ',
+                'option_c' => 'กาแฟ',
+                'option_d' => 'การ์ด',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'บทกวีใดเป็นฉันท์',
+                'option_a' => 'กลอนสุภาพ',
+                'option_b' => 'กาพย์ยานี',
+                'option_c' => 'โคลงสี่สุภาพ',
+                'option_d' => 'ทั้งหมดถูก',
+                'correct_answer' => 'd',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'ลักษณนามของ "ช้าง" คือคำใด',
+                'option_a' => 'ตัว',
+                'option_b' => 'เชือก',
+                'option_c' => 'เนื้อ',
+                'option_d' => 'โขลง',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'คำใดไม่ใช่คำเสียงสัตว์',
+                'option_a' => 'โมก',
+                'option_b' => 'เห่า',
+                'option_c' => 'ร้อง',
+                'option_d' => 'ใส',
+                'correct_answer' => 'd',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 1,
+                'question_text' => 'สำนวน "เอาหัวใจมาดอง" หมายความว่าอะไร',
+                'option_a' => 'รักอย่างลึกซึ้ง',
+                'option_b' => 'เสียใจมาก',
+                'option_c' => 'โกรธแค้น',
+                'option_d' => 'อดทน',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            
+            // คণิตศาสตร์ (Subject ID: 2) - 30 ข้อ
+            
+            // Easy Level (10 ข้อ)
+            [
+                'subject_id' => 2,
+                'question_text' => '5 + 3 = ?',
+                'option_a' => '6',
+                'option_b' => '7',
+                'option_c' => '8',
+                'option_d' => '9',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '10 - 4 = ?',
+                'option_a' => '5',
+                'option_b' => '6',
+                'option_c' => '7',
+                'option_d' => '8',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '3 × 4 = ?',
+                'option_a' => '10',
+                'option_b' => '11',
+                'option_c' => '12',
+                'option_d' => '13',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '20 ÷ 4 = ?',
+                'option_a' => '4',
+                'option_b' => '5',
+                'option_c' => '6',
+                'option_d' => '7',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '7 + 8 = ?',
+                'option_a' => '14',
+                'option_b' => '15',
+                'option_c' => '16',
+                'option_d' => '17',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '9 - 3 = ?',
+                'option_a' => '5',
+                'option_b' => '6',
+                'option_c' => '7',
+                'option_d' => '8',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '2 × 6 = ?',
+                'option_a' => '10',
+                'option_b' => '11',
+                'option_c' => '12',
+                'option_d' => '13',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '15 ÷ 3 = ?',
+                'option_a' => '4',
+                'option_b' => '5',
+                'option_c' => '6',
+                'option_d' => '7',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '6 + 7 = ?',
+                'option_a' => '12',
+                'option_b' => '13',
+                'option_c' => '14',
+                'option_d' => '15',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '11 - 5 = ?',
+                'option_a' => '5',
+                'option_b' => '6',
+                'option_c' => '7',
+                'option_d' => '8',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            
+            // Medium Level (10 ข้อ)
+            [
+                'subject_id' => 2,
+                'question_text' => '12 × 8 = ?',
+                'option_a' => '94',
+                'option_b' => '96',
+                'option_c' => '98',
+                'option_d' => '100',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '144 ÷ 12 = ?',
+                'option_a' => '11',
+                'option_b' => '12',
+                'option_c' => '13',
+                'option_d' => '14',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '25 + 37 = ?',
+                'option_a' => '60',
+                'option_b' => '61',
+                'option_c' => '62',
+                'option_d' => '63',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '100 - 43 = ?',
+                'option_a' => '55',
+                'option_b' => '56',
+                'option_c' => '57',
+                'option_d' => '58',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '7 × 9 = ?',
+                'option_a' => '61',
+                'option_b' => '62',
+                'option_c' => '63',
+                'option_d' => '64',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '84 ÷ 7 = ?',
+                'option_a' => '11',
+                'option_b' => '12',
+                'option_c' => '13',
+                'option_d' => '14',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '45 + 28 = ?',
+                'option_a' => '71',
+                'option_b' => '72',
+                'option_c' => '73',
+                'option_d' => '74',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '93 - 28 = ?',
+                'option_a' => '63',
+                'option_b' => '64',
+                'option_c' => '65',
+                'option_d' => '66',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '6 × 8 = ?',
+                'option_a' => '46',
+                'option_b' => '47',
+                'option_c' => '48',
+                'option_d' => '49',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '72 ÷ 9 = ?',
+                'option_a' => '7',
+                'option_b' => '8',
+                'option_c' => '9',
+                'option_d' => '10',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            
+            // Hard Level (10 ข้อ)
+            [
+                'subject_id' => 2,
+                'question_text' => 'รูปสี่เหลี่ยมจัตุรัสที่มีด้านยาว 6 ซม. จะมีพื้นที่เท่าใด',
+                'option_a' => '24 ตารางเซนติเมตร',
+                'option_b' => '30 ตารางเซนติเมตร',
+                'option_c' => '36 ตารางเซนติเมตร',
+                'option_d' => '42 ตารางเซนติเมตร',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => 'รูปสามเหลี่ยมที่มีฐาน 8 ซม. สูง 6 ซม. จะมีพื้นที่เท่าใด',
+                'option_a' => '22 ตารางเซนติเมตร',
+                'option_b' => '24 ตารางเซนติเมตร',
+                'option_c' => '26 ตารางเซนติเมตร',
+                'option_d' => '28 ตารางเซนติเมตร',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => 'รูปวงกลมที่มีรัศมี 7 ซม. จะมีพื้นที่เท่าใด (π = 22/7)',
+                'option_a' => '154 ตารางเซนติเมตร',
+                'option_b' => '156 ตารางเซนติเมตร',
+                'option_c' => '158 ตารางเซนติเมตร',
+                'option_d' => '160 ตารางเซนติเมตร',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '2³ + 3² = ?',
+                'option_a' => '15',
+                'option_b' => '17',
+                'option_c' => '19',
+                'option_d' => '21',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '√144 = ?',
+                'option_a' => '10',
+                'option_b' => '11',
+                'option_c' => '12',
+                'option_d' => '13',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '125 ÷ 5 + 8 × 3 = ?',
+                'option_a' => '47',
+                'option_b' => '48',
+                'option_c' => '49',
+                'option_d' => '50',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => 'ถ้า x + 5 = 12 แล้ว x เท่ากับเท่าใด',
+                'option_a' => '5',
+                'option_b' => '6',
+                'option_c' => '7',
+                'option_d' => '8',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => 'ปริมาตรของลูกบาศก์ที่มีด้านยาว 4 ซม. เท่ากับเท่าใด',
+                'option_a' => '60 ลูกบาศก์เซนติเมตร',
+                'option_b' => '62 ลูกบาศก์เซนติเมตร',
+                'option_c' => '64 ลูกบาศก์เซนติเมตร',
+                'option_d' => '66 ลูกบาศก์เซนติเมตร',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '0.5 + 0.25 = ?',
+                'option_a' => '0.70',
+                'option_b' => '0.75',
+                'option_c' => '0.80',
+                'option_d' => '0.85',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 2,
+                'question_text' => '3/4 + 1/8 = ?',
+                'option_a' => '5/8',
+                'option_b' => '6/8',
+                'option_c' => '7/8',
+                'option_d' => '8/8',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            
+            // วิทยาศาสตร์ (Subject ID: 3) - 30 ข้อ
+            
+            // Easy Level (10 ข้อ)
+            [
+                'subject_id' => 3,
+                'question_text' => 'สัตว์ใดเป็นสัตว์เลือดเย็น',
+                'option_a' => 'หมา',
+                'option_b' => 'แมว',
+                'option_c' => 'งู',
+                'option_d' => 'นก',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ดวงอาทิตย์เป็นอะไร',
+                'option_a' => 'ดาวเคราะห์',
+                'option_b' => 'ดาวฤกษ์',
+                'option_c' => 'ดาวหาง',
+                'option_d' => 'ดาวเทียม',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'พืชใดให้ออกซิเจน',
+                'option_a' => 'ทุกชนิด',
+                'option_b' => 'เฉพาะต้นไผ่',
+                'option_c' => 'เฉพาะต้นไม้ใหญ่',
+                'option_d' => 'เฉพาะพืชใบเขียว',
+                'correct_answer' => 'd',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'อวัยวะใดใช้หายใจของปลา',
+                'option_a' => 'จมูก',
+                'option_b' => 'ปอด',
+                'option_c' => 'เหงือก',
+                'option_d' => 'หัวใจ',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'โลกหมุนรอบแกนใช้เวลากี่ชั่วโมง',
+                'option_a' => '12 ชั่วโมง',
+                'option_b' => '18 ชั่วโมง',
+                'option_c' => '24 ชั่วโมง',
+                'option_d' => '30 ชั่วโมง',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'น้ำแข็งเป็นสถานะใดของน้ำ',
+                'option_a' => 'ของแข็ง',
+                'option_b' => 'ของเหลว',
+                'option_c' => 'ก๊าซ',
+                'option_d' => 'พลาสม่า',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'สีใดไม่ใช่สีขั้นพื้นฐาน',
+                'option_a' => 'แดง',
+                'option_b' => 'เหลือง',
+                'option_c' => 'น้ำเงิน',
+                'option_d' => 'เขียว',
+                'correct_answer' => 'd',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'อวัยวะใดสูบฉีดเลือด',
+                'option_a' => 'ปอด',
+                'option_b' => 'หัวใจ',
+                'option_c' => 'ตับ',
+                'option_d' => 'ไต',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'สัตว์ใดเป็นสัตว์กินพืช',
+                'option_a' => 'สิงโต',
+                'option_b' => 'ช้าง',
+                'option_c' => 'เสือ',
+                'option_d' => 'หมาป่า',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ฝนเกิดจากอะไร',
+                'option_a' => 'เมฆ',
+                'option_b' => 'ลม',
+                'option_c' => 'ดวงอาทิตย์',
+                'option_d' => 'ดวงจันทร์',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            
+            // Medium Level (10 ข้อ)
+            [
+                'subject_id' => 3,
+                'question_text' => 'น้ำจะเดือดที่อุณหภูมิกี่องศาเซลเซียส',
+                'option_a' => '90 องศา',
+                'option_b' => '95 องศา',
+                'option_c' => '100 องศา',
+                'option_d' => '105 องศา',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ก๊าซใดมีสูตรเคมี H2O',
+                'option_a' => 'ไฮโดรเจน',
+                'option_b' => 'ออกซิเจน',
+                'option_c' => 'ไนโตรเจน',
+                'option_d' => 'น้ำ',
+                'correct_answer' => 'd',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'โรคใดเกิดจากการขาดวิตามินซี',
+                'option_a' => 'เหงือกอักเสบ',
+                'option_b' => 'โรคลักปิดลักเปิด',
+                'option_c' => 'โรคซีด',
+                'option_d' => 'โรคตาแห้ง',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'แรงโน้มถ่วงของโลกมีค่าเท่าใด',
+                'option_a' => '9.8 m/s²',
+                'option_b' => '9.9 m/s²',
+                'option_c' => '10.0 m/s²',
+                'option_d' => '10.1 m/s²',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'กระบวนการใดที่พืชสร้างอาหาร',
+                'option_a' => 'การหายใจ',
+                'option_b' => 'การสังเคราะห์ด้วยแสง',
+                'option_c' => 'การระเหย',
+                'option_d' => 'การย่อย',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ออกซิเจนมีสูตรเคมีอะไร',
+                'option_a' => 'O',
+                'option_b' => 'O2',
+                'option_c' => 'O3',
+                'option_d' => 'OH',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'เสียงเดินทางในอากาศด้วยความเร็วเท่าใด',
+                'option_a' => '330 เมตร/วินาที',
+                'option_b' => '340 เมตร/วินาที',
+                'option_c' => '350 เมตร/วินาที',
+                'option_d' => '360 เมตร/วินาที',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ดาวเคราะห์ใดใกล้ดวงอาทิตย์ที่สุด',
+                'option_a' => 'ดาวพุธ',
+                'option_b' => 'ดาวศุกร์',
+                'option_c' => 'โลก',
+                'option_d' => 'ดาวอังคาร',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'เซลล์พืชมีส่วนใดที่เซลล์สัตว์ไม่มี',
+                'option_a' => 'นิวเคลียส',
+                'option_b' => 'ผนังเซลล์',
+                'option_c' => 'ไซโตพลาสซึม',
+                'option_d' => 'เมมเบรน',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'โลหะใดเป็นตัวนำไฟฟ้าที่ดีที่สุด',
+                'option_a' => 'ทอง',
+                'option_b' => 'เงิน',
+                'option_c' => 'ทองแดง',
+                'option_d' => 'อะลูมิเนียม',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            
+            // Hard Level (10 ข้อ)
+            [
+                'subject_id' => 3,
+                'question_text' => 'ธาตุใดมีสัญลักษณ์ Au',
+                'option_a' => 'เงิน',
+                'option_b' => 'ทอง',
+                'option_c' => 'ทองแดง',
+                'option_d' => 'อะลูมิเนียม',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'กฎข้อใดของนิวตันกล่าวถึงแรงปฏิกิริยา',
+                'option_a' => 'กฎข้อที่ 1',
+                'option_b' => 'กฎข้อที่ 2',
+                'option_c' => 'กฎข้อที่ 3',
+                'option_d' => 'กฎข้อที่ 4',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'โมเลกุลของน้ำมีพันธะเคมีชนิดใด',
+                'option_a' => 'พันธะไอออนิก',
+                'option_b' => 'พันธะโควาเลนต์',
+                'option_c' => 'พันธะโลหะ',
+                'option_d' => 'พันธะไฮโดรเจน',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'DNA ย่อมาจากอะไร',
+                'option_a' => 'Deoxyribonucleic acid',
+                'option_b' => 'Dinitrogen acid',
+                'option_c' => 'Double nuclear acid',
+                'option_d' => 'Dynamic nucleic acid',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'เอนไซม์ที่ย่อยแป้งในน้ำลายคืออะไร',
+                'option_a' => 'เปปซิน',
+                'option_b' => 'ไลเปส',
+                'option_c' => 'แอมิเลส',
+                'option_d' => 'ทริปซิน',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ก๊าซเรือนกระจกที่สำคัญที่สุดคืออะไร',
+                'option_a' => 'คาร์บอนไดออกไซด์',
+                'option_b' => 'มีเทน',
+                'option_c' => 'ไนตรัสออกไซด์',
+                'option_d' => 'โอโซน',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'หน่วย SI ของแรงคืออะไร',
+                'option_a' => 'จูล',
+                'option_b' => 'นิวตัน',
+                'option_c' => 'ปาสคาล',
+                'option_d' => 'วัตต์',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'อนุภาคใดมีประจุเป็นลบ',
+                'option_a' => 'โปรตอน',
+                'option_b' => 'นิวตรอน',
+                'option_c' => 'อิเล็กตรอน',
+                'option_d' => 'โฟตอน',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'ความเร็วแสงในสุญญากาศเท่ากับเท่าใด',
+                'option_a' => '299,792,458 m/s',
+                'option_b' => '300,000,000 m/s',
+                'option_c' => '299,800,000 m/s',
+                'option_d' => '300,792,458 m/s',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 3,
+                'question_text' => 'กระบวนการใดที่เซลล์แบ่งตัวเป็น 4 เซลล์',
+                'option_a' => 'ไมโทซิส',
+                'option_b' => 'ไมโอซิส',
+                'option_c' => 'ไซโตไคนีซิส',
+                'option_d' => 'อินเตอร์เฟส',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            
+            // สังคมศึกษา (Subject ID: 4) - 30 ข้อ
+            
+            // Easy Level (10 ข้อ)
+            [
+                'subject_id' => 4,
+                'question_text' => 'เมืองหลวงของประเทศไทยคืออะไร',
+                'option_a' => 'เชียงใหม่',
+                'option_b' => 'กรุงเทพฯ',
+                'option_c' => 'ขอนแก่น',
+                'option_d' => 'หาดใหญ่',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ประเทศไทยมีกี่ภาค',
+                'option_a' => '4 ภาค',
+                'option_b' => '5 ภาค',
+                'option_c' => '6 ภาค',
+                'option_d' => '7 ภาค',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'แม่น้ำสายหลักของประเทศไทยคือแม่น้ำใด',
+                'option_a' => 'แม่น้ำปิง',
+                'option_b' => 'แม่น้ำน่าน',
+                'option_c' => 'แม่น้ำเจ้าพระยา',
+                'option_d' => 'แม่น้ำโขง',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'สกุลเงินของประเทศไทยคืออะไร',
+                'option_a' => 'ดอลลาร์',
+                'option_b' => 'บาท',
+                'option_c' => 'เยน',
+                'option_d' => 'ยูโร',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ธงชาติไทยมีกี่สี',
+                'option_a' => '2 สี',
+                'option_b' => '3 สี',
+                'option_c' => '4 สี',
+                'option_d' => '5 สี',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ประเทศใดอยู่ทางเหนือของประเทศไทย',
+                'option_a' => 'กรุงเทพ',
+                'option_b' => 'มาเลเซีย',
+                'option_c' => 'เมียนม่าร์',
+                'option_d' => 'เวียดนาม',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'วันชาติไทยตรงกับวันใด',
+                'option_a' => '5 ธันวาคม',
+                'option_b' => '12 สิงหาคม',
+                'option_c' => '23 ตุลาคม',
+                'option_d' => '28 กรกฎาคม',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ภาคใดของไทยมีพื้นที่มากที่สุด',
+                'option_a' => 'ภาคเหนือ',
+                'option_b' => 'ภาคกลาง',
+                'option_c' => 'ภาคใต้',
+                'option_d' => 'ภาคตะวันออกเฉียงเหนือ',
+                'correct_answer' => 'd',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'จังหวัดใดเป็นจังหวัดที่มีพื้นที่ใหญ่ที่สุด',
+                'option_a' => 'เชียงใหม่',
+                'option_b' => 'นครราชสีมา',
+                'option_c' => 'กาญจนบุรี',
+                'option_d' => 'เพชรบูรณ์',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ศาสนาหลักของคนไทยคือศาสนาใด',
+                'option_a' => 'พระพุทธศาสนา',
+                'option_b' => 'ศาสนาคริสต์',
+                'option_c' => 'ศาสนาอิสลาม',
+                'option_d' => 'ศาสนาฮินดู',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            
+            // Medium Level (10 ข้อ)
+            [
+                'subject_id' => 4,
+                'question_text' => 'สมเด็จพระนเรศวรมหาราช ทรงปลดแอกใครมาแล้ว',
+                'option_a' => 'พม่า',
+                'option_b' => 'ขอม',
+                'option_c' => 'ลาว',
+                'option_d' => 'ญวน',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'กรุงศรีอยุธยาเสียให้พม่าครั้งที่ 2 เมื่อปีใด',
+                'option_a' => 'พ.ศ. 2300',
+                'option_b' => 'พ.ศ. 2310',
+                'option_c' => 'พ.ศ. 2320',
+                'option_d' => 'พ.ศ. 2330',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'พระบาทสมเด็จพระจอมเกล้าเจ้าอยู่หัว ทรงเป็นพระมหากษัตริย์ในรัชกาลใด',
+                'option_a' => 'รัชกาลที่ 3',
+                'option_b' => 'รัชกาลที่ 4',
+                'option_c' => 'รัชกาลที่ 5',
+                'option_d' => 'รัชกาลที่ 6',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'สนธิสัญญาเบาว์ริงเซ็นในรัชสมัยใด',
+                'option_a' => 'รัชกาลที่ 3',
+                'option_b' => 'รัชกาลที่ 4',
+                'option_c' => 'รัชกาลที่ 5',
+                'option_d' => 'รัชกาลที่ 6',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'การปฏิวัติสยาม พ.ศ. 2475 เกิดขึ้นในรัชสมัยใด',
+                'option_a' => 'รัชกาลที่ 6',
+                'option_b' => 'รัชกาลที่ 7',
+                'option_c' => 'รัชกาลที่ 8',
+                'option_d' => 'รัชกาลที่ 9',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ใครเป็นนายกรัฐมนตรีคนแรกของไทย',
+                'option_a' => 'พระยามโนปกรณ์นิติธาดา',
+                'option_b' => 'พลเอกป. พิบูลสงคราม',
+                'option_c' => 'จอมพลแป้ก พิบูลสงคราม',
+                'option_d' => 'หม่อมเจ้าอำพนรรท์ กฤดากร',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'วัฒนธรรมใดเป็นต้นกำเนิดของอารยธรรมไทย',
+                'option_a' => 'วัฒนธรรมทวารวดี',
+                'option_b' => 'วัฒนธรรมศรีวิชัย',
+                'option_c' => 'วัฒนธรรมลพบุรี',
+                'option_d' => 'วัฒนธรรมสุโขทัย',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'พระมหาธาตุเจดีย์ที่มีชื่อเสียงที่สุดในสมัยสุโขทัยคืออะไร',
+                'option_a' => 'วัดมหาธาตุ',
+                'option_b' => 'วัดศรีชุม',
+                'option_c' => 'วัดสระศรี',
+                'option_d' => 'วัดสะพานหิน',
+                'correct_answer' => 'a',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'อาเซียนก่อตั้งขึ้นเมื่อปีใด',
+                'option_a' => 'พ.ศ. 2509',
+                'option_b' => 'พ.ศ. 2510',
+                'option_c' => 'พ.ศ. 2511',
+                'option_d' => 'พ.ศ. 2512',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ภูมิภาคใดมีประเทศสมาชิกอาเซียนมากที่สุด',
+                'option_a' => 'เอเชียตะวันออก',
+                'option_b' => 'เอเชียตะวันออกเฉียงใต้',
+                'option_c' => 'เอเชียใต้',
+                'option_d' => 'เอเชียกลาง',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            
+            // Hard Level (10 ข้อ)
+            [
+                'subject_id' => 4,
+                'question_text' => 'สมเด็จพระนเรศวรมหาราช ทรงเป็นกษัตริย์องค์ใด',
+                'option_a' => 'องค์ที่ 1',
+                'option_b' => 'องค์ที่ 2',
+                'option_c' => 'องค์ที่ 3',
+                'option_d' => 'องค์ที่ 4',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'พระราชพิธีใดที่พระมหากษัตริย์ไทยทรงกินน้ำพระพิพัฒน์สาบาน',
+                'option_a' => 'พระราชพิธีบรมราชาภิเษก',
+                'option_b' => 'พระราชพิธีเฉลิมพระชนมพรรษา',
+                'option_c' => 'พระราชพิธีเผาพระศพ',
+                'option_d' => 'พระราชพิธีองค์ทรงกิต',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ใครเป็นผู้ประพันธ์ มหาชาติคำหลวง',
+                'option_a' => 'สมเด็จพระมหาสมณเจ้า',
+                'option_b' => 'สุนทรภู่',
+                'option_c' => 'พระบรมไตรโลกนาถ',
+                'option_d' => 'พระบรมยามโสดร',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'สงครามโลกครั้งที่ 2 ประเทศไทยผูกพันธมิตรกับประเทศใด',
+                'option_a' => 'อังกฤษ',
+                'option_b' => 'ฝรั่งเศส',
+                'option_c' => 'ญี่ปุ่น',
+                'option_d' => 'สหรัฐอเมริกา',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'การปฏิรูปการปกครองในรัชกาลที่ 5 เรียกว่าอะไร',
+                'option_a' => 'ทศพิธราชธรรม',
+                'option_b' => 'เทศพิธนิยม',
+                'option_c' => 'ราชการแบบเดิม',
+                'option_d' => 'ราชการแบบใหม่',
+                'correct_answer' => 'd',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'พ.ร.บ.ประกันสุขภาพแห่งชาติใช้บังคับตั้งแต่เมื่อไหร่',
+                'option_a' => 'พ.ศ. 2544',
+                'option_b' => 'พ.ศ. 2545',
+                'option_c' => 'พ.ศ. 2546',
+                'option_d' => 'พ.ศ. 2547',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'รัฐธรรมนูญฉบับใดเป็นฉบับแรกของประเทศไทย',
+                'option_a' => 'รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2475',
+                'option_b' => 'รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2476',
+                'option_c' => 'รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2477',
+                'option_d' => 'รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2478',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'ใครเป็นบิดาแห่งประชาธิปไตยไทย',
+                'option_a' => 'นายปรีดี พนมยงค์',
+                'option_b' => 'พระยาภาณุ',
+                'option_c' => 'หลวงประดิษฐ์มนูธรรม',
+                'option_d' => 'นายแปลก ขุนคิตติ',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'เหตุการณ์ 6 ตุลา เกิดขึ้นในปีใด',
+                'option_a' => 'พ.ศ. 2516',
+                'option_b' => 'พ.ศ. 2519',
+                'option_c' => 'พ.ศ. 2520',
+                'option_d' => 'พ.ศ. 2523',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 4,
+                'question_text' => 'กรุงเทพมหานครมีสถานภาพเป็นอะไร',
+                'option_a' => 'จังหวัด',
+                'option_b' => 'นครหลวง',
+                'option_c' => 'กรุงเทพมหานคร',
+                'option_d' => 'เมือง',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            
+            // ภาษาอังกฤษ (Subject ID: 5) - 30 ข้อ
+            
+            // Easy Level (10 ข้อ)
+            [
+                'subject_id' => 5,
+                'question_text' => 'What color is the sky?',
+                'option_a' => 'Red',
+                'option_b' => 'Blue',
+                'option_c' => 'Green',
+                'option_d' => 'Yellow',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'How do you say "สวัสดี" in English?',
+                'option_a' => 'Goodbye',
+                'option_b' => 'Thank you',
+                'option_c' => 'Hello',
+                'option_d' => 'Sorry',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the English word for "แมว"?',
+                'option_a' => 'Dog',
+                'option_b' => 'Cat',
+                'option_c' => 'Bird',
+                'option_d' => 'Fish',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'How many days are there in a week?',
+                'option_a' => 'Five',
+                'option_b' => 'Six',
+                'option_c' => 'Seven',
+                'option_d' => 'Eight',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the opposite of "big"?',
+                'option_a' => 'Large',
+                'option_b' => 'Small',
+                'option_c' => 'Tall',
+                'option_d' => 'Long',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => '"I _____ a student." What should fill the blank?',
+                'option_a' => 'am',
+                'option_b' => 'is',
+                'option_c' => 'are',
+                'option_d' => 'be',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is "1" in English?',
+                'option_a' => 'One',
+                'option_b' => 'Two',
+                'option_c' => 'Three',
+                'option_d' => 'Four',
+                'correct_answer' => 'a',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What do you say when you meet someone?',
+                'option_a' => 'Goodbye',
+                'option_b' => 'Hello',
+                'option_c' => 'Thank you',
+                'option_d' => 'Sorry',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the English word for "น้ำ"?',
+                'option_a' => 'Fire',
+                'option_b' => 'Air',
+                'option_c' => 'Water',
+                'option_d' => 'Earth',
+                'correct_answer' => 'c',
+                'difficulty' => 'easy'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => '"She _____ happy." What should fill the blank?',
+                'option_a' => 'am',
+                'option_b' => 'is',
+                'option_c' => 'are',
+                'option_d' => 'be',
+                'correct_answer' => 'b',
+                'difficulty' => 'easy'
+            ],
+            
+            // Medium Level (10 ข้อ)
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which is the correct past tense of "go"?',
+                'option_a' => 'goed',
+                'option_b' => 'gone',
+                'option_c' => 'went',
+                'option_d' => 'going',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the plural form of "child"?',
+                'option_a' => 'childs',
+                'option_b' => 'children',
+                'option_c' => 'childrens',
+                'option_d' => 'child',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which sentence is correct?',
+                'option_a' => 'He don\'t like pizza.',
+                'option_b' => 'He doesn\'t like pizza.',
+                'option_c' => 'He not like pizza.',
+                'option_d' => 'He no like pizza.',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What does "beautiful" mean?',
+                'option_a' => 'ugly',
+                'option_b' => 'pretty',
+                'option_c' => 'angry',
+                'option_d' => 'sad',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which word is a synonym for "happy"?',
+                'option_a' => 'sad',
+                'option_b' => 'angry',
+                'option_c' => 'joyful',
+                'option_d' => 'tired',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => '"There _____ many books on the shelf." What should fill the blank?',
+                'option_a' => 'is',
+                'option_b' => 'are',
+                'option_c' => 'am',
+                'option_d' => 'be',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the opposite of "fast"?',
+                'option_a' => 'quick',
+                'option_b' => 'slow',
+                'option_c' => 'speed',
+                'option_d' => 'run',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which is a question word?',
+                'option_a' => 'and',
+                'option_b' => 'but',
+                'option_c' => 'where',
+                'option_d' => 'the',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => '"I _____ to school yesterday." What should fill the blank?',
+                'option_a' => 'go',
+                'option_b' => 'goes',
+                'option_c' => 'went',
+                'option_d' => 'going',
+                'correct_answer' => 'c',
+                'difficulty' => 'medium'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which article should be used before "apple"?',
+                'option_a' => 'a',
+                'option_b' => 'an',
+                'option_c' => 'the',
+                'option_d' => 'none',
+                'correct_answer' => 'b',
+                'difficulty' => 'medium'
+            ],
+            
+            // Hard Level (10 ข้อ)
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which sentence uses the subjunctive mood correctly?',
+                'option_a' => 'If I was rich, I would travel.',
+                'option_b' => 'If I were rich, I would travel.',
+                'option_c' => 'If I am rich, I would travel.',
+                'option_d' => 'If I will be rich, I would travel.',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the correct form of reported speech for "I will come tomorrow"?',
+                'option_a' => 'He said he will come tomorrow.',
+                'option_b' => 'He said he would come tomorrow.',
+                'option_c' => 'He said he would come the next day.',
+                'option_d' => 'He said he will come the next day.',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which sentence contains a dangling modifier?',
+                'option_a' => 'Walking down the street, the trees were beautiful.',
+                'option_b' => 'Walking down the street, I saw beautiful trees.',
+                'option_c' => 'The trees were beautiful as I walked down the street.',
+                'option_d' => 'I walked down the street and saw beautiful trees.',
+                'correct_answer' => 'a',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What type of clause is "because it was raining" in "We stayed inside because it was raining"?',
+                'option_a' => 'Independent clause',
+                'option_b' => 'Dependent clause',
+                'option_c' => 'Relative clause',
+                'option_d' => 'Noun clause',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which word functions as an adverb in "She sings beautifully"?',
+                'option_a' => 'She',
+                'option_b' => 'sings',
+                'option_c' => 'beautifully',
+                'option_d' => 'None',
+                'correct_answer' => 'c',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the correct passive voice of "The chef cooked the meal"?',
+                'option_a' => 'The meal cooked by the chef.',
+                'option_b' => 'The meal was cooked by the chef.',
+                'option_c' => 'The meal is cooked by the chef.',
+                'option_d' => 'The meal has cooked by the chef.',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which sentence demonstrates correct parallel structure?',
+                'option_a' => 'I like swimming, running, and to bike.',
+                'option_b' => 'I like swimming, running, and biking.',
+                'option_c' => 'I like to swim, running, and biking.',
+                'option_d' => 'I like swimming, to run, and biking.',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the etymology of the word "telephone"?',
+                'option_a' => 'Latin origin',
+                'option_b' => 'Greek origin',
+                'option_c' => 'French origin',
+                'option_d' => 'German origin',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'Which literary device is used in "The classroom was a zoo"?',
+                'option_a' => 'Simile',
+                'option_b' => 'Metaphor',
+                'option_c' => 'Personification',
+                'option_d' => 'Hyperbole',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+            [
+                'subject_id' => 5,
+                'question_text' => 'What is the difference between "affect" and "effect"?',
+                'option_a' => 'Affect is a noun, effect is a verb',
+                'option_b' => 'Affect is a verb, effect is a noun',
+                'option_c' => 'They mean the same thing',
+                'option_d' => 'There is no difference',
+                'correct_answer' => 'b',
+                'difficulty' => 'hard'
+            ],
+        ];
+
+        foreach ($questions as $question) {
+            \App\Models\Question::create($question);
+        }
+    }
+}
