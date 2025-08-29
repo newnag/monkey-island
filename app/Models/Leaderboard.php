@@ -17,7 +17,7 @@ class Leaderboard extends Model
         'time_taken',
         'time_used',
         'accuracy',
-        'rank'
+        'rank',
     ];
 
     public function player()
@@ -39,25 +39,26 @@ class Leaderboard extends Model
     {
         $minutes = floor($this->time_taken / 60);
         $seconds = $this->time_taken % 60;
+
         return sprintf('%02d:%02d', $minutes, $seconds);
     }
 
     public static function updateRanks($subjectId = null, $mode = null)
     {
         $query = self::query();
-        
+
         if ($subjectId) {
             $query->where('subject_id', $subjectId);
         }
-        
+
         if ($mode) {
             $query->where('mode', $mode);
         }
-        
+
         $leaderboards = $query->orderByDesc('score')
-                             ->orderBy('time_taken')
-                             ->get();
-        
+            ->orderBy('time_taken')
+            ->get();
+
         $rank = 1;
         foreach ($leaderboards as $leaderboard) {
             $leaderboard->update(['rank' => $rank]);

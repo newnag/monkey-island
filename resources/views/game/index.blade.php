@@ -101,7 +101,7 @@
 
         <!-- Footer Actions -->
         <div class="text-center mt-8">
-            <a href="{{ route('leaderboard') }}" 
+            <a href="{{ route('game.leaderboard') }}" 
                class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 mr-4">
                 🏆 ดูอันดับ
             </a>

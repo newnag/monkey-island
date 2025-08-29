@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\QuestionsExport;
 use App\Http\Controllers\Controller;
+use App\Imports\QuestionsImport;
 use App\Models\Question;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Imports\QuestionsImport;
-use App\Exports\QuestionsExport;
 
 class QuestionController extends Controller
 {
@@ -19,25 +19,25 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $query = Question::with('subject');
-        
+
         // Filter by subject
         if ($request->has('subject_id') && $request->subject_id != '') {
             $query->where('subject_id', $request->subject_id);
         }
-        
+
         // Filter by difficulty
         if ($request->has('difficulty') && $request->difficulty != '') {
             $query->where('difficulty', $request->difficulty);
         }
-        
+
         // Search
         if ($request->has('search') && $request->search != '') {
-            $query->where('question_text', 'like', '%' . $request->search . '%');
+            $query->where('question_text', 'like', '%'.$request->search.'%');
         }
-        
+
         $questions = $query->paginate(15);
         $subjects = Subject::all();
-        
+
         return view('admin.questions.index', compact('questions', 'subjects'));
     }
 
@@ -47,6 +47,7 @@ class QuestionController extends Controller
     public function bySubject(Subject $subject)
     {
         $questions = $subject->questions()->paginate(15);
+
         return view('admin.questions.by-subject', compact('subject', 'questions'));
     }
 
@@ -57,7 +58,7 @@ class QuestionController extends Controller
     {
         $subjects = Subject::all();
         $selectedSubject = $request->get('subject_id');
-        
+
         return view('admin.questions.create', compact('subjects', 'selectedSubject'));
     }
 
@@ -75,7 +76,7 @@ class QuestionController extends Controller
             'option_d' => 'required|string|max:255',
             'correct_answer' => 'required|in:option_a,option_b,option_c,option_d',
             'difficulty' => 'required|in:easy,medium,hard',
-            'image_path' => 'nullable|image|max:2048'
+            'image_path' => 'nullable|image|max:2048',
         ]);
 
         // Convert correct_answer from option_x to x format for database
@@ -98,18 +99,18 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         $question->load('subject');
-        
+
         // Get previous and next questions in the same subject
         $previousQuestion = Question::where('subject_id', $question->subject_id)
             ->where('id', '<', $question->id)
             ->orderBy('id', 'desc')
             ->first();
-            
+
         $nextQuestion = Question::where('subject_id', $question->subject_id)
             ->where('id', '>', $question->id)
             ->orderBy('id', 'asc')
             ->first();
-        
+
         return view('admin.questions.show', compact('question', 'previousQuestion', 'nextQuestion'));
     }
 
@@ -119,6 +120,7 @@ class QuestionController extends Controller
     public function edit(Question $question)
     {
         $subjects = Subject::all();
+
         return view('admin.questions.edit', compact('question', 'subjects'));
     }
 
@@ -138,7 +140,7 @@ class QuestionController extends Controller
             'difficulty' => 'required|in:easy,medium,hard',
             'explanation' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
-            'remove_image' => 'boolean'
+            'remove_image' => 'boolean',
         ]);
 
         // Convert correct_answer from option_x to x format for database
@@ -191,27 +193,27 @@ class QuestionController extends Controller
     {
         $request->validate([
             'file' => 'required|mimes:xlsx,xls,csv',
-            'subject_id' => 'required|exists:subjects,id'
+            'subject_id' => 'required|exists:subjects,id',
         ]);
 
         try {
             Excel::import(new QuestionsImport($request->subject_id), $request->file('file'));
-            
+
             return back()->with('success', 'นำเข้าคำถามสำเร็จ');
         } catch (\Exception $e) {
-            return back()->with('error', 'เกิดข้อผิดพลาด: ' . $e->getMessage());
+            return back()->with('error', 'เกิดข้อผิดพลาด: '.$e->getMessage());
         }
     }
 
     /**
      * Export questions to Excel
      */
-    public function export(Subject $subject = null)
+    public function export(?Subject $subject = null)
     {
-        $filename = $subject 
-            ? "questions_{$subject->name}_" . date('Y-m-d') . ".xlsx"
-            : "all_questions_" . date('Y-m-d') . ".xlsx";
-            
+        $filename = $subject
+            ? "questions_{$subject->name}_".date('Y-m-d').'.xlsx'
+            : 'all_questions_'.date('Y-m-d').'.xlsx';
+
         return Excel::download(new QuestionsExport($subject?->id), $filename);
     }
 }

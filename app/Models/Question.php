@@ -16,7 +16,7 @@ class Question extends Model
         'correct_answer',
         'difficulty',
         'image_path',
-        'status'
+        'status',
     ];
 
     protected $casts = [
@@ -51,8 +51,8 @@ class Question extends Model
         ];
 
         // Filter out empty options
-        $nonEmptyOptions = array_filter($originalOptions, function($option) {
-            return !empty(trim($option));
+        $nonEmptyOptions = array_filter($originalOptions, function ($option) {
+            return ! empty(trim($option));
         });
 
         // If we have less than 2 options, return original format
@@ -64,42 +64,42 @@ class Question extends Model
                     'option_c' => $this->option_c,
                     'option_d' => $this->option_d,
                 ],
-                'correct_answer' => $this->correct_answer
+                'correct_answer' => $this->correct_answer,
             ];
         }
 
         // Get the correct answer text
         $correctAnswerText = $originalOptions[$this->correct_answer];
-        
+
         // Create array with all non-empty options and their keys
         $optionsWithKeys = [];
         foreach ($nonEmptyOptions as $key => $value) {
             $optionsWithKeys[] = [
                 'key' => $key,
                 'value' => $value,
-                'is_correct' => ($key === $this->correct_answer)
+                'is_correct' => ($key === $this->correct_answer),
             ];
         }
-        
+
         // Shuffle the options
         shuffle($optionsWithKeys);
-        
+
         // Map to new positions
         $shuffledOptions = [
             'option_a' => '',
             'option_b' => '',
             'option_c' => '',
-            'option_d' => ''
+            'option_d' => '',
         ];
-        
+
         $newCorrectAnswer = '';
         $optionKeys = ['a', 'b', 'c', 'd'];
-        
+
         // Assign shuffled options to new positions
         for ($i = 0; $i < count($optionsWithKeys) && $i < 4; $i++) {
-            $newOptionKey = 'option_' . $optionKeys[$i];
+            $newOptionKey = 'option_'.$optionKeys[$i];
             $shuffledOptions[$newOptionKey] = $optionsWithKeys[$i]['value'];
-            
+
             // Track where the correct answer ended up
             if ($optionsWithKeys[$i]['is_correct']) {
                 $newCorrectAnswer = $optionKeys[$i];
@@ -108,19 +108,21 @@ class Question extends Model
 
         return [
             'options' => $shuffledOptions,
-            'correct_answer' => $newCorrectAnswer
+            'correct_answer' => $newCorrectAnswer,
         ];
     }
 
     public function getShuffledOptionsAttribute()
     {
         $shuffledData = $this->getShuffledOptionsAndCorrectAnswer();
+
         return $shuffledData['options'];
     }
 
     public function getShuffledCorrectAnswerAttribute()
     {
         $shuffledData = $this->getShuffledOptionsAndCorrectAnswer();
+
         return $shuffledData['correct_answer'];
     }
 

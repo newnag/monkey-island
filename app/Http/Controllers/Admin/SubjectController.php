@@ -14,6 +14,7 @@ class SubjectController extends Controller
     public function index()
     {
         $subjects = Subject::withCount('questions')->paginate(10);
+
         return view('admin.subjects.index', compact('subjects'));
     }
 
@@ -34,7 +35,7 @@ class SubjectController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'max_questions' => 'required|integer|min:1|max:100',
-            'status' => 'required|in:active,inactive'
+            'status' => 'required|in:active,inactive',
         ]);
 
         Subject::create($validated);
@@ -49,6 +50,7 @@ class SubjectController extends Controller
     public function show(Subject $subject)
     {
         $subject->load('questions');
+
         return view('admin.subjects.show', compact('subject'));
     }
 
@@ -69,7 +71,7 @@ class SubjectController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'max_questions' => 'required|integer|min:1|max:100',
-            'status' => 'required|in:active,inactive'
+            'status' => 'required|in:active,inactive',
         ]);
 
         $subject->update($validated);

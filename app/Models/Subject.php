@@ -10,7 +10,7 @@ class Subject extends Model
         'name',
         'description',
         'max_questions',
-        'status'
+        'status',
     ];
 
     protected $casts = [

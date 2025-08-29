@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('time_taken'); // seconds
             $table->integer('rank')->nullable();
             $table->timestamps();
-            
+
             $table->index(['subject_id', 'mode', 'score', 'time_taken']);
         });
     }

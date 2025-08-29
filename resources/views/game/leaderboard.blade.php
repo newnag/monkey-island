@@ -67,9 +67,9 @@
                 <div class="bg-gradient-to-b from-gray-300 to-gray-500 text-white rounded-xl p-6 shadow-xl transform -rotate-2 hover:rotate-0 transition-transform">
                     <div class="text-6xl mb-4">🥈</div>
                     <h3 class="text-xl font-bold mb-2">อันดับ 2</h3>
-                    <p class="text-lg font-semibold text-gray-100">{{ $leaderboards[1]->player->player_code }}</p>
+                    <p class="text-lg font-semibold text-gray-100">{{ $leaderboards[1]->player->nickname ?? $leaderboards[1]->player->player_code }}</p>
                     <p class="text-2xl font-bold text-white">{{ number_format($leaderboards[1]->score) }}</p>
-                    <p class="text-sm text-gray-200">{{ $leaderboards[1]->accuracy }}% • {{ $leaderboards[1]->subject->name ?? 'หลายวิชา' }}</p>
+                    <p class="text-sm text-gray-200">{{ $leaderboards[1]->accuracy }}% • {{ $leaderboards[1]->subject->name ?? 'วิชาผสม' }}</p>
                 </div>
             </div>
 
@@ -78,9 +78,9 @@
                 <div class="bg-gradient-to-b from-yellow-300 to-yellow-600 text-white rounded-xl p-8 shadow-2xl transform scale-110">
                     <div class="text-8xl mb-4">🏆</div>
                     <h3 class="text-2xl font-bold mb-2">อันดับ 1</h3>
-                    <p class="text-xl font-semibold text-gray-100">{{ $leaderboards[0]->player->player_code }}</p>
+                    <p class="text-xl font-semibold text-gray-100">{{ $leaderboards[0]->player->nickname ?? $leaderboards[0]->player->player_code }}</p>
                     <p class="text-3xl font-bold text-white">{{ number_format($leaderboards[0]->score) }}</p>
-                    <p class="text-sm text-gray-200">{{ $leaderboards[0]->accuracy }}% • {{ $leaderboards[0]->subject->name ?? 'หลายวิชา' }}</p>
+                    <p class="text-sm text-gray-200">{{ $leaderboards[0]->accuracy }}% • {{ $leaderboards[0]->subject->name ?? 'วิชาผสม' }}</p>
                 </div>
             </div>
 
@@ -89,9 +89,9 @@
                 <div class="bg-gradient-to-b from-orange-400 to-orange-600 text-white rounded-xl p-6 shadow-xl transform rotate-2 hover:rotate-0 transition-transform">
                     <div class="text-6xl mb-4">🥉</div>
                     <h3 class="text-xl font-bold mb-2">อันดับ 3</h3>
-                    <p class="text-lg font-semibold text-gray-100">{{ $leaderboards[2]->player->player_code }}</p>
+                    <p class="text-lg font-semibold text-gray-100">{{ $leaderboards[2]->player->nickname ?? $leaderboards[2]->player->player_code }}</p>
                     <p class="text-2xl font-bold text-white">{{ number_format($leaderboards[2]->score) }}</p>
-                    <p class="text-sm text-gray-200">{{ $leaderboards[2]->accuracy }}% • {{ $leaderboards[2]->subject->name ?? 'หลายวิชา' }}</p>
+                    <p class="text-sm text-gray-200">{{ $leaderboards[2]->accuracy }}% • {{ $leaderboards[2]->subject->name ?? 'วิชาผสม' }}</p>
                 </div>
             </div>
         </div>
@@ -140,12 +140,16 @@
                                     <div class="avatar placeholder">
                                         <div class="bg-primary text-white rounded-full w-12 h-12">
                                             <span class="text-lg font-bold">
-                                                {{ strtoupper(substr($record->player->player_code, 0, 2)) }}
+                                                @if($record->player->nickname)
+                                                    {{ strtoupper(substr($record->player->nickname, 0, 2)) }}
+                                                @else
+                                                    {{ strtoupper(substr($record->player->player_code, 0, 2)) }}
+                                                @endif
                                             </span>
                                         </div>
                                     </div>
                                     <div>
-                                        <div class="font-bold text-gray-800">{{ $record->player->player_code }}</div>
+                                        <div class="font-bold text-gray-800">{{ $record->player->nickname ?? $record->player->player_code }}</div>
                                         <div class="text-sm text-gray-600">
                                             {{ $record->created_at->diffForHumans() }}
                                         </div>
@@ -179,7 +183,7 @@
                             </td>
                             <td>
                                 <div class="badge badge-outline">
-                                    {{ $record->subject->name ?? 'หลายวิชา' }}
+                                    {{ $record->subject->name ?? 'วิชาผสม' }}
                                 </div>
                             </td>
                             <td class="text-center">

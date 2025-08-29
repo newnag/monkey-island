@@ -39,7 +39,7 @@ return new class extends Migration
                 'helper_ask_audience',
                 'helper_extra_time',
                 'helper_skip',
-                'completed_at'
+                'completed_at',
             ]);
         });
     }

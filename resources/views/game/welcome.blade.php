@@ -5,6 +5,17 @@
     <div class="max-w-4xl w-full">
         <!-- Welcome Header -->
         <div class="text-center mb-8">
+            @php
+                $playerNickname = request()->cookie('player_nickname');
+            @endphp
+            
+            @if($playerNickname)
+                <div class="mb-4">
+                    <p class="text-white text-lg opacity-80">ยินดีต้อนรับกลับมา</p>
+                    <h2 class="text-3xl font-bold text-yellow-300 mb-2">🎮 {{ $playerNickname }}</h2>
+                </div>
+            @endif
+            
             <h1 class="text-6xl font-bold text-white mb-4">
                 🐵 Monkey Island Quiz
             </h1>
@@ -101,13 +112,28 @@
 
         <!-- Footer Actions -->
         <div class="text-center mt-8">
-            <a href="{{ route('leaderboard') }}" 
+            <a href="{{ route('game.leaderboard') }}" 
                class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 mr-4">
                 🏆 ดูอันดับ
             </a>
+            
+            @if(request()->cookie('player_nickname'))
+                <a href="{{ route('player.edit-nickname') }}" 
+                   class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105 mr-4">
+                    ✏️ แก้ไขชื่อ
+                </a>
+            @endif
+            
             <a href="{{ route('admin.dashboard') }}" 
                class="inline-block bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
                 👤 Admin
+            </a>
+            
+            <!-- Debug: Clear Player Data -->
+            <a href="{{ route('player.clear') }}" 
+               class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 text-sm ml-4"
+               onclick="return confirm('ต้องการล้างข้อมูลผู้เล่นหรือไม่?')">
+                🗑️ ล้างข้อมูล
             </a>
         </div>
 
@@ -115,7 +141,7 @@
         @if(Cookie::get('player_code'))
             <div class="text-center mt-6">
                 <p class="text-white opacity-70">
-                    ยินดีต้อนรับ ผู้เล่นหมายเลข: <span class="font-bold">{{ Cookie::get('player_code') }}</span>
+                    รหัสผู้เล่น: <span class="font-bold">{{ Cookie::get('player_code') }}</span>
                 </p>
             </div>
         @endif

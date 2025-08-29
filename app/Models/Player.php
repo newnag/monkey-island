@@ -3,14 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class Player extends Model
 {
     protected $fillable = [
         'player_code',
         'nickname',
-        'ip_address'
+        'ip_address',
     ];
 
     public function gameSessions()
@@ -35,17 +34,17 @@ class Player extends Model
     public function getBestScore($subjectId = null, $mode = null)
     {
         $query = $this->leaderboards();
-        
+
         if ($subjectId) {
             $query->where('subject_id', $subjectId);
         }
-        
+
         if ($mode) {
             $query->where('mode', $mode);
         }
-        
+
         return $query->orderByDesc('score')
-                     ->orderBy('time_taken')
-                     ->first();
+            ->orderBy('time_taken')
+            ->first();
     }
 }

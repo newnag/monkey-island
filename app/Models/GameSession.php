@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class GameSession extends Model
 {
@@ -28,7 +27,7 @@ class GameSession extends Model
         'helper_ask_audience',
         'helper_extra_time',
         'helper_skip',
-        'completed_at'
+        'completed_at',
     ];
 
     protected $casts = [
@@ -61,8 +60,8 @@ class GameSession extends Model
 
     public function getAccuracyAttribute()
     {
-        return $this->total_questions > 0 
-            ? round(($this->correct_answers / $this->total_questions) * 100, 2) 
+        return $this->total_questions > 0
+            ? round(($this->correct_answers / $this->total_questions) * 100, 2)
             : 0;
     }
 
@@ -70,6 +69,7 @@ class GameSession extends Model
     {
         $minutes = floor($this->time_taken / 60);
         $seconds = $this->time_taken % 60;
+
         return sprintf('%02d:%02d', $minutes, $seconds);
     }
 

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Subject;
-use App\Models\Question;
 use App\Models\GameSession;
-use App\Models\Player;
 use App\Models\Leaderboard;
-use Illuminate\Http\Request;
+use App\Models\Player;
+use App\Models\Question;
+use App\Models\Subject;
 
 class DashboardController extends Controller
 {

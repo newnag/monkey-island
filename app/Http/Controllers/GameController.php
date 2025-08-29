@@ -2,45 +2,188 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Subject;
-use App\Models\Question;
-use App\Models\Player;
 use App\Models\GameSession;
 use App\Models\Leaderboard;
+use App\Models\Player;
+use App\Models\Question;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class GameController extends Controller
 {
     public function welcome()
     {
+        // Check if player has nickname
+        if (! $this->playerHasNickname()) {
+            return redirect()->route('player.nickname-setup');
+        }
+
         $subjects = Subject::active()->withCount('questions')->get();
+
         return view('game.welcome', compact('subjects'));
     }
 
     public function index()
     {
+        // Check if player has nickname
+        if (! $this->playerHasNickname()) {
+            return redirect()->route('player.nickname-setup');
+        }
+
         // Generate player if not exists
         $playerId = $this->getOrCreatePlayer();
-        
+
         $subjects = Subject::active()->withCount('questions')->get();
+
         return view('game.index', compact('subjects'));
+    }
+
+    private function playerHasNickname()
+    {
+        $playerCode = Cookie::get('player_code');
+
+        if (! $playerCode) {
+            return false;
+        }
+
+        $player = Player::where('player_code', $playerCode)->first();
+
+        if (! $player || empty($player->nickname)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function play($mode)
     {
         $validModes = ['single', 'mixed', 'fun', 'ranking'];
-        
-        if (!in_array($mode, $validModes)) {
+
+        if (! in_array($mode, $validModes)) {
             return redirect()->route('game.index')->with('error', 'โหมดไม่ถูกต้อง');
+        }
+
+        // For ranking mode, show special ranking start page
+        if ($mode === 'ranking') {
+            return $this->showRankingStart();
         }
 
         $subjects = Subject::active()->withCount('questions')->get();
         $questionCount = $this->getQuestionCountByMode($mode);
-        
+
         return view('game.play', compact('mode', 'subjects', 'questionCount'));
+    }
+
+    private function showRankingStart()
+    {
+        // Get all active subjects with questions
+        $availableSubjects = Subject::active()
+            ->withCount('questions')
+            ->having('questions_count', '>', 0)
+            ->get();
+
+        return view('game.ranking-start', compact('availableSubjects'));
+    }
+
+    public function startRanking(Request $request)
+    {
+        // Get all active subjects with questions
+        $subjects = Subject::active()
+            ->withCount('questions')
+            ->having('questions_count', '>', 0)
+            ->get();
+
+        if ($subjects->isEmpty()) {
+            return redirect()->route('game.index')
+                ->with('error', 'ไม่มีวิชาที่มีข้อสอบสำหรับโหมด Ranking');
+        }
+
+        $playerId = $this->getOrCreatePlayer();
+        $totalQuestions = 25;
+        $questionsPerSubject = intval($totalQuestions / $subjects->count());
+        $remainingQuestions = $totalQuestions % $subjects->count();
+
+        $allQuestions = collect();
+        $subjectNames = [];
+
+        // Get questions from each subject equally
+        foreach ($subjects as $index => $subject) {
+            $questionsToTake = $questionsPerSubject;
+
+            // Add remaining questions to first few subjects
+            if ($index < $remainingQuestions) {
+                $questionsToTake++;
+            }
+
+            $questions = Question::where('subject_id', $subject->id)
+                ->active()
+                ->inRandomOrder()
+                ->limit($questionsToTake)
+                ->get();
+
+            if ($questions->count() > 0) {
+                $allQuestions = $allQuestions->merge($questions);
+                $subjectNames[] = $subject->name;
+            }
+        }
+
+        // Shuffle all questions together
+        $allQuestions = $allQuestions->shuffle();
+
+        if ($allQuestions->count() < 10) {
+            return redirect()->route('game.index')
+                ->with('error', 'ข้อสอบไม่เพียงพอสำหรับโหมด Ranking (ต้องการอย่างน้อย 10 ข้อ)');
+        }
+
+        // Limit to exactly 25 questions or available questions
+        $finalQuestions = $allQuestions->take(25);
+
+        // Create game session (use null for subject_id since it's mixed subjects)
+        $gameSession = GameSession::create([
+            'player_id' => $playerId,
+            'subject_id' => null, // Mixed subjects
+            'session_id' => uniqid('game_', true),
+            'mode' => 'ranking',
+            'total_questions' => $finalQuestions->count(),
+            'status' => 'active',
+            'started_at' => now(),
+        ]);
+
+        // Store questions in session with shuffled options
+        $questionsWithShuffledOptions = [];
+        foreach ($finalQuestions as $q) {
+            $shuffledData = $q->getShuffledOptionsAndCorrectAnswer();
+
+            $questionsWithShuffledOptions[] = [
+                'id' => $q->id,
+                'question_text' => $q->question_text,
+                'option_a' => $shuffledData['options']['option_a'],
+                'option_b' => $shuffledData['options']['option_b'],
+                'option_c' => $shuffledData['options']['option_c'],
+                'option_d' => $shuffledData['options']['option_d'],
+                'original_correct_answer' => $q->correct_answer,
+                'shuffled_correct_answer' => $shuffledData['correct_answer'],
+                'difficulty' => $q->difficulty,
+                'image_path' => $q->image_path,
+                'subject_name' => $q->subject->name,
+            ];
+        }
+
+        Session::put("game_session_{$gameSession->session_id}", [
+            'questions' => $questionsWithShuffledOptions,
+            'current_question' => 0,
+            'score' => 0,
+            'correct_answers' => 0,
+            'answers' => [],
+            'helpers_used' => [],
+            'start_time' => time(),
+        ]);
+
+        return redirect()->route('game.question', $gameSession->session_id)
+            ->with('success', 'โหมด Ranking เริ่มแล้ว! วิชาผสม: '.implode(', ', $subjectNames));
     }
 
     public function start(Request $request)
@@ -52,7 +195,7 @@ class GameController extends Controller
 
         $playerId = $this->getOrCreatePlayer();
         $subject = Subject::findOrFail($request->subject_id);
-        
+
         // Get questions based on mode
         $questionCount = $this->getQuestionCountByMode($request->mode);
         $questions = Question::where('subject_id', $subject->id)
@@ -80,7 +223,7 @@ class GameController extends Controller
         $questionsWithShuffledOptions = [];
         foreach ($questions as $q) {
             $shuffledData = $q->getShuffledOptionsAndCorrectAnswer();
-            
+
             $questionsWithShuffledOptions[] = [
                 'id' => $q->id,
                 'question_text' => $q->question_text,
@@ -108,7 +251,7 @@ class GameController extends Controller
         return response()->json([
             'success' => true,
             'session_id' => $gameSession->session_id,
-            'redirect' => route('game.question', $gameSession->session_id)
+            'redirect' => route('game.question', $gameSession->session_id),
         ]);
     }
 
@@ -119,45 +262,45 @@ class GameController extends Controller
             ->where('is_completed', false)
             ->first();
 
-        if (!$session) {
+        if (! $session) {
             return redirect()->route('game.index')->with('error', 'ไม่พบเซสชันเกม');
         }
 
         // Get current question based on session progress
         $currentQuestionIndex = $session->current_question_index;
         $sessionData = Session::get("game_session_{$sessionId}");
-        
-        if (!$sessionData || !isset($sessionData['questions'])) {
+
+        if (! $sessionData || ! isset($sessionData['questions'])) {
             return redirect()->route('game.index')->with('error', 'ไม่พบข้อมูลเกม');
         }
-        
+
         $questions = $sessionData['questions'];
-        
+
         if ($currentQuestionIndex >= count($questions)) {
             return $this->completeGame($session);
         }
 
         $questionData = $questions[$currentQuestionIndex];
-        
+
         // Create question object from session data
         $question = (object) $questionData;
-        
+
         $timeLimit = $this->getTimeLimitByMode($session->mode);
         $totalQuestions = $session->total_questions;
         $mode = $session->mode;
         $player = $session->player;
-        
+
         // Get helpers used
         $helpersUsed = [
             'fifty_fifty' => $session->helper_fifty_fifty,
             'ask_audience' => $session->helper_ask_audience,
             'extra_time' => $session->helper_extra_time,
-            'skip' => $session->helper_skip
+            'skip' => $session->helper_skip,
         ];
 
         return view('game.question', compact(
             'session',
-            'question', 
+            'question',
             'currentQuestionIndex',
             'totalQuestions',
             'timeLimit',
@@ -172,16 +315,17 @@ class GameController extends Controller
     {
         $gameSession = GameSession::with(['subject', 'player'])->findOrFail($sessionId);
         $sessionData = Session::get("game_session_{$sessionId}");
-        
-        if (!$sessionData || $gameSession->status === 'completed') {
+
+        if (! $sessionData || $gameSession->status === 'completed') {
             // Load from database if session completed
             $leaderboard = Leaderboard::where('game_session_id', $sessionId)->first();
+
             return view('game.result', compact('gameSession', 'leaderboard'));
         }
 
         // Complete the game session
         $timeTaken = time() - $sessionData['start_time'];
-        
+
         $gameSession->update([
             'score' => $sessionData['score'],
             'correct_answers' => $sessionData['correct_answers'],
@@ -189,7 +333,7 @@ class GameController extends Controller
             'answers' => $sessionData['answers'],
             'helpers_used' => $sessionData['helpers_used'],
             'finished_at' => now(),
-            'status' => 'completed'
+            'status' => 'completed',
         ]);
 
         // Add to leaderboard
@@ -215,49 +359,52 @@ class GameController extends Controller
     {
         $subjectId = $request->get('subject');
         $mode = $request->get('mode', 'ranking');
-        
+
         $query = Leaderboard::with(['player', 'subject'])
-            ->orderBy('rank');
-            
+            ->orderBy('score', 'desc')
+            ->orderBy('time_taken', 'asc');
+
         if ($subjectId) {
             $query->where('subject_id', $subjectId);
         }
-        
+
         if ($mode) {
             $query->where('mode', $mode);
         }
-        
+
         $leaderboards = $query->limit(100)->get();
         $subjects = Subject::active()->get();
-        
+
         return view('game.leaderboard', compact('leaderboards', 'subjects', 'subjectId', 'mode'));
     }
 
     private function getOrCreatePlayer()
     {
         $playerCode = Cookie::get('player_code');
-        
+
         if ($playerCode) {
             $player = Player::where('player_code', $playerCode)->first();
             if ($player) {
                 return $player->id;
             }
         }
-        
-        // Create new player
+
+        // Should not reach here if nickname setup is properly enforced
+        // But create player anyway with empty nickname as fallback
         $player = Player::create([
             'player_code' => Player::generatePlayerCode(),
+            'nickname' => null,
             'ip_address' => request()->ip(),
         ]);
-        
+
         Cookie::queue('player_code', $player->player_code, 43200); // 30 days
-        
+
         return $player->id;
     }
 
     private function getQuestionCountByMode($mode)
     {
-        return match($mode) {
+        return match ($mode) {
             'single' => 10,
             'mixed' => 20,
             'fun' => 15,
@@ -265,22 +412,22 @@ class GameController extends Controller
             default => 10
         };
     }
-    
+
     // Helper methods for game logic
     private function getQuestions($subjectId, $mode, $totalQuestions)
     {
         $query = Question::active();
-        
+
         if ($subjectId && $mode !== 'mixed') {
             $query->where('subject_id', $subjectId);
         }
-        
+
         return $query->inRandomOrder()->take($totalQuestions)->get();
     }
-    
+
     private function getTimeLimitByMode($mode)
     {
-        return match($mode) {
+        return match ($mode) {
             'single' => 30,
             'mixed' => 25,
             'fun' => 60,
@@ -288,18 +435,18 @@ class GameController extends Controller
             default => 30
         };
     }
-    
+
     private function completeGame($session)
     {
         $session->update([
             'is_completed' => true,
             'completed_at' => now(),
-            'status' => 'completed'
+            'status' => 'completed',
         ]);
-        
+
         return redirect()->route('game.results', $session->session_id);
     }
-    
+
     // API endpoints for game interactions
     public function submitAnswer(Request $request)
     {
@@ -308,27 +455,27 @@ class GameController extends Controller
             'question_id' => 'required|integer',
             'selected_answer' => 'nullable|string|in:option_a,option_b,option_c,option_d',
             'time_left' => 'required|integer',
-            'time_up' => 'boolean'
+            'time_up' => 'boolean',
         ]);
 
         $session = GameSession::where('session_id', $request->session_id)->first();
-        if (!$session) {
+        if (! $session) {
             return response()->json(['success' => false, 'message' => 'ไม่พบเซสชันเกม']);
         }
 
         // Get question data from session (which includes shuffled options)
         $sessionData = Session::get("game_session_{$request->session_id}");
-        if (!$sessionData || !isset($sessionData['questions'])) {
+        if (! $sessionData || ! isset($sessionData['questions'])) {
             return response()->json(['success' => false, 'message' => 'ไม่พบข้อมูลเกม']);
         }
 
         $currentQuestionIndex = $session->current_question_index;
-        if (!isset($sessionData['questions'][$currentQuestionIndex])) {
+        if (! isset($sessionData['questions'][$currentQuestionIndex])) {
             return response()->json(['success' => false, 'message' => 'ไม่พบคำถามปัจจุบัน']);
         }
 
         $questionData = $sessionData['questions'][$currentQuestionIndex];
-        
+
         // Check if the question ID matches
         if ($questionData['id'] != $request->question_id) {
             return response()->json(['success' => false, 'message' => 'คำถามไม่ตรงกัน']);
@@ -339,11 +486,11 @@ class GameController extends Controller
         if ($request->selected_answer) {
             $selectedAnswerLetter = str_replace('option_', '', $request->selected_answer);
         }
-        
+
         // Check if answer is correct by comparing with shuffled correct answer
         $isCorrect = $selectedAnswerLetter === $questionData['shuffled_correct_answer'];
         $pointsEarned = 0;
-        
+
         if ($isCorrect) {
             $pointsEarned = 1; // 1 point per correct answer
         }
@@ -357,17 +504,17 @@ class GameController extends Controller
 
         // Check if game is completed
         $gameCompleted = $session->current_question_index >= $session->total_questions;
-        
+
         if ($gameCompleted) {
             $session->update([
                 'is_completed' => true,
                 'completed_at' => now(),
-                'status' => 'completed'
+                'status' => 'completed',
             ]);
-            
+
             // Update leaderboard for ranking mode
             if ($session->mode === 'ranking') {
-                Log::info('Updating leaderboard for session: ' . $session->id);
+                Log::info('Updating leaderboard for session: '.$session->id);
                 $this->updateLeaderboard($session);
             }
         }
@@ -378,24 +525,24 @@ class GameController extends Controller
             'points_earned' => $pointsEarned,
             'total_score' => $session->total_score,
             'game_completed' => $gameCompleted,
-            'message' => $isCorrect ? 'ตอบถูก!' : 'ตอบผิด!'
+            'message' => $isCorrect ? 'ตอบถูก!' : 'ตอบผิด!',
         ]);
     }
-    
+
     public function useHelper(Request $request)
     {
         $request->validate([
             'session_id' => 'required|string',
             'helper_type' => 'required|string|in:fifty_fifty,ask_audience,extra_time,skip',
-            'question_id' => 'required|integer'
+            'question_id' => 'required|integer',
         ]);
 
         $session = GameSession::where('session_id', $request->session_id)->first();
-        if (!$session) {
+        if (! $session) {
             return response()->json(['success' => false, 'message' => 'ไม่พบเซสชันเกม']);
         }
 
-        $helperField = 'helper_' . $request->helper_type;
+        $helperField = 'helper_'.$request->helper_type;
         if ($session->$helperField) {
             return response()->json(['success' => false, 'message' => 'ใช้ตัวช่วยนี้แล้ว']);
         }
@@ -410,33 +557,33 @@ class GameController extends Controller
             case 'fifty_fifty':
                 // Get question data from session (which includes shuffled options)
                 $sessionData = Session::get("game_session_{$request->session_id}");
-                if (!$sessionData || !isset($sessionData['questions'])) {
+                if (! $sessionData || ! isset($sessionData['questions'])) {
                     return response()->json(['success' => false, 'message' => 'ไม่พบข้อมูลเกม']);
                 }
 
                 $currentQuestionIndex = $session->current_question_index;
                 $questionData = $sessionData['questions'][$currentQuestionIndex];
-                
+
                 // Get shuffled correct answer (a, b, c, d format)
                 $correctAnswerLetter = $questionData['shuffled_correct_answer'];
-                $correctOption = 'option_' . $correctAnswerLetter;
-                
+                $correctOption = 'option_'.$correctAnswerLetter;
+
                 // Get all non-empty options
                 $allOptions = ['option_a', 'option_b', 'option_c', 'option_d'];
-                $availableOptions = array_filter($allOptions, function($opt) use ($questionData) {
-                    return !empty(trim($questionData[$opt]));
+                $availableOptions = array_filter($allOptions, function ($opt) use ($questionData) {
+                    return ! empty(trim($questionData[$opt]));
                 });
-                
+
                 // Get incorrect options (excluding correct answer)
-                $incorrectOptions = array_filter($availableOptions, function($opt) use ($correctOption) {
+                $incorrectOptions = array_filter($availableOptions, function ($opt) use ($correctOption) {
                     return $opt !== $correctOption;
                 });
-                
+
                 // Randomly select 2 incorrect options to hide
                 $incorrectOptionsArray = array_values($incorrectOptions);
                 shuffle($incorrectOptionsArray);
                 $hiddenOptions = array_slice($incorrectOptionsArray, 0, 2);
-                
+
                 $data = ['hidden_options' => $hiddenOptions];
                 $message = 'ลดตัวเลือกเหลือ 2 ตัวเลือก';
                 break;
@@ -444,54 +591,54 @@ class GameController extends Controller
             case 'ask_audience':
                 // Get session data for shuffled questions
                 $sessionData = Session::get("game_session_{$request->session_id}");
-                if (!$sessionData || !isset($sessionData['questions'])) {
+                if (! $sessionData || ! isset($sessionData['questions'])) {
                     return response()->json(['success' => false, 'message' => 'ไม่พบข้อมูลเกม']);
                 }
 
                 $currentQuestionIndex = $session->current_question_index;
                 $currentQuestionData = $sessionData['questions'][$currentQuestionIndex];
                 $shuffledCorrectAnswerLetter = $currentQuestionData['shuffled_correct_answer'];
-                $shuffledCorrectOption = 'option_' . $shuffledCorrectAnswerLetter;
-                
+                $shuffledCorrectOption = 'option_'.$shuffledCorrectAnswerLetter;
+
                 $availableOptions = ['option_a', 'option_b', 'option_c', 'option_d'];
-                $availableOptions = array_filter($availableOptions, function($opt) use ($currentQuestionData) {
-                    return !empty($currentQuestionData[$opt]);
+                $availableOptions = array_filter($availableOptions, function ($opt) use ($currentQuestionData) {
+                    return ! empty($currentQuestionData[$opt]);
                 });
-                
+
                 // Generate realistic percentages (correct answer gets 70-85%)
                 $percentages = [];
                 $correctPercentage = rand(70, 85);
                 $remainingPercentage = 100 - $correctPercentage;
-                
-                $incorrectOptions = array_filter($availableOptions, function($opt) use ($shuffledCorrectOption) {
+
+                $incorrectOptions = array_filter($availableOptions, function ($opt) use ($shuffledCorrectOption) {
                     return $opt !== $shuffledCorrectOption;
                 });
                 $incorrectCount = count($incorrectOptions);
-                
+
                 // Initialize all available options with 0%
                 foreach ($availableOptions as $option) {
                     $percentages[$option] = 0;
                 }
-                
+
                 // Set correct answer percentage
                 $percentages[$shuffledCorrectOption] = $correctPercentage;
-                
+
                 // Distribute remaining percentage among incorrect options
                 if ($incorrectCount > 0) {
                     $basePercentage = intval($remainingPercentage / $incorrectCount);
                     $remainingAfterBase = $remainingPercentage - ($basePercentage * $incorrectCount);
-                    
+
                     foreach ($incorrectOptions as $option) {
                         $percentages[$option] = $basePercentage;
                     }
-                    
+
                     // Add remaining to random incorrect option
                     if ($remainingAfterBase > 0) {
                         $randomIncorrectOption = array_rand($incorrectOptions);
                         $percentages[$incorrectOptions[$randomIncorrectOption]] += $remainingAfterBase;
                     }
                 }
-                
+
                 $data = ['percentages' => $percentages];
                 $message = 'ดูผลการสำรวจจากผู้ชม';
                 break;
@@ -509,14 +656,14 @@ class GameController extends Controller
         return response()->json([
             'success' => true,
             'data' => $data,
-            'message' => $message
+            'message' => $message,
         ]);
     }
-    
+
     public function quitGame(Request $request)
     {
         $request->validate([
-            'session_id' => 'required|string'
+            'session_id' => 'required|string',
         ]);
 
         $session = GameSession::where('session_id', $request->session_id)->first();
@@ -524,18 +671,18 @@ class GameController extends Controller
             $session->update([
                 'is_completed' => true,
                 'status' => 'quit',
-                'completed_at' => now()
+                'completed_at' => now(),
             ]);
         }
 
         return response()->json(['success' => true]);
     }
-    
+
     public function nextQuestion($sessionId)
     {
         return redirect()->route('game.question', $sessionId);
     }
-    
+
     public function results($sessionId)
     {
         $session = GameSession::with(['player', 'subject'])
@@ -543,7 +690,7 @@ class GameController extends Controller
             ->where('is_completed', true)
             ->first();
 
-        if (!$session) {
+        if (! $session) {
             return redirect()->route('game.index')->with('error', 'ไม่พบผลเกม');
         }
 
@@ -551,19 +698,19 @@ class GameController extends Controller
         $correctAnswers = $session->correct_answers;
         $totalQuestions = $session->total_questions;
         $accuracy = $totalQuestions > 0 ? round(($correctAnswers / $totalQuestions) * 100, 1) : 0;
-        
+
         $helpersUsedCount = collect([
             $session->helper_fifty_fifty,
             $session->helper_ask_audience,
             $session->helper_extra_time,
-            $session->helper_skip
+            $session->helper_skip,
         ])->filter()->count();
 
         // Calculate time used
-        $timeUsed = $session->completed_at ? 
+        $timeUsed = $session->completed_at ?
             $session->completed_at->diffInSeconds($session->started_at) : 0;
-        
-        $averageTimePerQuestion = $totalQuestions > 0 ? 
+
+        $averageTimePerQuestion = $totalQuestions > 0 ?
             round($timeUsed / $totalQuestions, 1) : 0;
 
         // Get leaderboard position if ranking mode
@@ -575,11 +722,11 @@ class GameController extends Controller
                 ->orderBy('score', 'desc')
                 ->orderBy('time_used', 'asc')
                 ->get();
-            
-            $position = $leaderboard->search(function($item) use ($session) {
+
+            $position = $leaderboard->search(function ($item) use ($session) {
                 return $item->player_id === $session->player_id;
             });
-            
+
             if ($position !== false) {
                 $leaderboardPosition = $position + 1;
                 $totalPlayers = $leaderboard->count();
@@ -590,13 +737,13 @@ class GameController extends Controller
         $questionAnswers = [];
         for ($i = 0; $i < $totalQuestions; $i++) {
             $questionAnswers[] = [
-                'question' => "คำถามที่ " . ($i + 1),
+                'question' => 'คำถามที่ '.($i + 1),
                 'selected_answer' => 'option_a',
                 'selected_option' => 'A',
                 'correct_option' => 'A',
                 'correct' => $i < $correctAnswers,
                 'points' => $i < $correctAnswers ? 10 : 0,
-                'time_used' => rand(10, 30)
+                'time_used' => rand(10, 30),
             ];
         }
 
@@ -612,34 +759,34 @@ class GameController extends Controller
             'questionAnswers'
         ));
     }
-    
+
     private function updateLeaderboard($session)
     {
         Log::info('updateLeaderboard called', [
             'session_id' => $session->id,
             'player_id' => $session->player_id,
             'mode' => $session->mode,
-            'total_score' => $session->total_score
+            'total_score' => $session->total_score,
         ]);
 
-        // Check if player already has a better score
+        // Check if player already has a better score for ranking mode (mixed subjects)
         $existingRecord = Leaderboard::where('player_id', $session->player_id)
-            ->where('subject_id', $session->subject_id)
             ->where('mode', $session->mode)
+            ->where('subject_id', $session->subject_id) // This can be null for mixed
             ->first();
 
-        if (!$existingRecord || $session->total_score > $existingRecord->score) {
+        if (! $existingRecord || $session->total_score > $existingRecord->score) {
             Log::info('Creating/updating leaderboard entry');
-            
+
             // Calculate time taken
-            $timeTaken = $session->completed_at ? 
+            $timeTaken = $session->completed_at ?
                 $session->completed_at->diffInSeconds($session->started_at) : 0;
-            
+
             $leaderboard = Leaderboard::updateOrCreate(
                 [
                     'player_id' => $session->player_id,
-                    'subject_id' => $session->subject_id,
-                    'mode' => $session->mode
+                    'subject_id' => $session->subject_id, // Can be null for mixed
+                    'mode' => $session->mode,
                 ],
                 [
                     'game_session_id' => $session->id,
@@ -648,11 +795,11 @@ class GameController extends Controller
                     'total_questions' => $session->total_questions,
                     'time_taken' => $timeTaken,
                     'time_used' => $timeTaken,
-                    'accuracy' => $session->total_questions > 0 ? 
-                        round(($session->correct_answers / $session->total_questions) * 100, 2) : 0
+                    'accuracy' => $session->total_questions > 0 ?
+                        round(($session->correct_answers / $session->total_questions) * 100, 2) : 0,
                 ]
             );
-            
+
             Log::info('Leaderboard entry created/updated', ['leaderboard_id' => $leaderboard->id]);
         } else {
             Log::info('Existing record has better score, not updating');
