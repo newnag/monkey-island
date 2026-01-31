@@ -7,6 +7,7 @@ use App\Models\Leaderboard;
 use App\Models\Player;
 use App\Models\Question;
 use App\Models\Subject;
+use App\Services\CacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
@@ -21,7 +22,8 @@ class GameController extends Controller
             return redirect()->route('player.nickname-setup');
         }
 
-        $subjects = Subject::active()->withCount('questions')->get();
+        // ใช้ cached subjects แทนการ query ตรง
+        $subjects = CacheService::getActiveSubjects();
 
         return view('game.welcome', compact('subjects'));
     }
@@ -36,7 +38,8 @@ class GameController extends Controller
         // Generate player if not exists
         $playerId = $this->getOrCreatePlayer();
 
-        $subjects = Subject::active()->withCount('questions')->get();
+        // ใช้ cached subjects แทนการ query ตรง
+        $subjects = CacheService::getActiveSubjects();
 
         return view('game.index', compact('subjects'));
     }
@@ -71,7 +74,8 @@ class GameController extends Controller
             return $this->showRankingStart();
         }
 
-        $subjects = Subject::active()->withCount('questions')->get();
+        // ใช้ cached subjects
+        $subjects = CacheService::getActiveSubjects();
         $questionCount = $this->getQuestionCountByMode($mode);
 
         return view('game.play', compact('mode', 'subjects', 'questionCount'));
@@ -79,22 +83,16 @@ class GameController extends Controller
 
     private function showRankingStart()
     {
-        // Get all active subjects with questions
-        $availableSubjects = Subject::active()
-            ->withCount('questions')
-            ->having('questions_count', '>', 0)
-            ->get();
+        // ใช้ cached subjects ที่มีคำถามแล้ว
+        $availableSubjects = CacheService::getActiveSubjects();
 
         return view('game.ranking-start', compact('availableSubjects'));
     }
 
     public function startRanking(Request $request)
     {
-        // Get all active subjects with questions
-        $subjects = Subject::active()
-            ->withCount('questions')
-            ->having('questions_count', '>', 0)
-            ->get();
+        // ใช้ cached subjects
+        $subjects = CacheService::getActiveSubjects();
 
         if ($subjects->isEmpty()) {
             return redirect()->route('game.index')
@@ -108,6 +106,15 @@ class GameController extends Controller
 
         $allQuestions = collect();
         $subjectNames = [];
+        $subjectIds = $subjects->pluck('id')->toArray();
+
+        // ดึงคำถามทั้งหมดใน query เดียว แล้วกรุ๊ปทีหลัง
+        $allQuestionsFromDb = Question::whereIn('subject_id', $subjectIds)
+            ->active()
+            ->with('subject:id,name') // Eager load เฉพาะ columns ที่ต้องการ
+            ->inRandomOrder()
+            ->get()
+            ->groupBy('subject_id');
 
         // Get questions from each subject equally
         foreach ($subjects as $index => $subject) {
@@ -118,11 +125,7 @@ class GameController extends Controller
                 $questionsToTake++;
             }
 
-            $questions = Question::where('subject_id', $subject->id)
-                ->active()
-                ->inRandomOrder()
-                ->limit($questionsToTake)
-                ->get();
+            $questions = $allQuestionsFromDb->get($subject->id, collect())->take($questionsToTake);
 
             if ($questions->count() > 0) {
                 $allQuestions = $allQuestions->merge($questions);
@@ -198,8 +201,12 @@ class GameController extends Controller
 
         // Get questions based on mode
         $questionCount = $this->getQuestionCountByMode($request->mode);
+        
+        // เลือกเฉพาะ columns ที่ต้องการ และใช้ eager load subject
         $questions = Question::where('subject_id', $subject->id)
             ->active()
+            ->select(['id', 'subject_id', 'question_text', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer', 'image_path'])
+            ->with('subject:id,name')
             ->inRandomOrder()
             ->limit($questionCount)
             ->get();
@@ -360,20 +367,11 @@ class GameController extends Controller
         $subjectId = $request->get('subject');
         $mode = $request->get('mode', 'ranking');
 
-        $query = Leaderboard::with(['player', 'subject'])
-            ->orderBy('score', 'desc')
-            ->orderBy('time_taken', 'asc');
-
-        if ($subjectId) {
-            $query->where('subject_id', $subjectId);
-        }
-
-        if ($mode) {
-            $query->where('mode', $mode);
-        }
-
-        $leaderboards = $query->limit(100)->get();
-        $subjects = Subject::active()->get();
+        // ใช้ cached leaderboard data
+        $leaderboards = CacheService::getLeaderboard($mode, $subjectId, 100);
+        
+        // ใช้ cached subjects
+        $subjects = CacheService::getActiveSubjects();
 
         return view('game.leaderboard', compact('leaderboards', 'subjects', 'subjectId', 'mode'));
     }
@@ -458,7 +456,11 @@ class GameController extends Controller
             'time_up' => 'boolean',
         ]);
 
-        $session = GameSession::where('session_id', $request->session_id)->first();
+        // ใช้ select เฉพาะ columns ที่ต้องการ และ cache session lookup
+        $session = GameSession::where('session_id', $request->session_id)
+            ->select(['id', 'session_id', 'player_id', 'mode', 'total_questions', 'current_question_index', 'total_score', 'correct_answers', 'started_at'])
+            ->first();
+            
         if (! $session) {
             return response()->json(['success' => false, 'message' => 'ไม่พบเซสชันเกม']);
         }
@@ -489,41 +491,48 @@ class GameController extends Controller
 
         // Check if answer is correct by comparing with shuffled correct answer
         $isCorrect = $selectedAnswerLetter === $questionData['shuffled_correct_answer'];
-        $pointsEarned = 0;
-
-        if ($isCorrect) {
-            $pointsEarned = 1; // 1 point per correct answer
-        }
-
-        // Update session
-        $session->increment('current_question_index');
-        $session->increment('total_score', $pointsEarned);
-        if ($isCorrect) {
-            $session->increment('correct_answers');
-        }
+        $pointsEarned = $isCorrect ? 1 : 0;
 
         // Check if game is completed
-        $gameCompleted = $session->current_question_index >= $session->total_questions;
+        $newQuestionIndex = $currentQuestionIndex + 1;
+        $gameCompleted = $newQuestionIndex >= $session->total_questions;
+
+        // รวม update เป็น query เดียว แทนที่จะ increment หลายครั้ง
+        $updateData = [
+            'current_question_index' => $newQuestionIndex,
+            'total_score' => $session->total_score + $pointsEarned,
+        ];
+        
+        if ($isCorrect) {
+            $updateData['correct_answers'] = $session->correct_answers + 1;
+        }
 
         if ($gameCompleted) {
-            $session->update([
-                'is_completed' => true,
-                'completed_at' => now(),
-                'status' => 'completed',
-            ]);
+            $updateData['is_completed'] = true;
+            $updateData['completed_at'] = now();
+            $updateData['status'] = 'completed';
+        }
 
-            // Update leaderboard for ranking mode
-            if ($session->mode === 'ranking') {
-                Log::info('Updating leaderboard for session: '.$session->id);
-                $this->updateLeaderboard($session);
-            }
+        // Single update query
+        GameSession::where('id', $session->id)->update($updateData);
+
+        // Update leaderboard for ranking mode (async-like, after response conceptually)
+        if ($gameCompleted && $session->mode === 'ranking') {
+            // Reload session with new data for leaderboard update
+            $session->refresh();
+            $session->total_score = $updateData['total_score'];
+            $session->correct_answers = $updateData['correct_answers'] ?? $session->correct_answers;
+            $session->completed_at = $updateData['completed_at'];
+            
+            Log::info('Updating leaderboard for session: '.$session->id);
+            $this->updateLeaderboard($session);
         }
 
         return response()->json([
             'success' => true,
             'correct' => $isCorrect,
             'points_earned' => $pointsEarned,
-            'total_score' => $session->total_score,
+            'total_score' => $updateData['total_score'],
             'game_completed' => $gameCompleted,
             'message' => $isCorrect ? 'ตอบถูก!' : 'ตอบผิด!',
         ]);
@@ -537,18 +546,21 @@ class GameController extends Controller
             'question_id' => 'required|integer',
         ]);
 
-        $session = GameSession::where('session_id', $request->session_id)->first();
-        if (! $session) {
-            return response()->json(['success' => false, 'message' => 'ไม่พบเซสชันเกม']);
-        }
-
         $helperField = 'helper_'.$request->helper_type;
-        if ($session->$helperField) {
+        
+        // ใช้ single query update with check
+        $updated = GameSession::where('session_id', $request->session_id)
+            ->where($helperField, false)
+            ->update([$helperField => true]);
+        
+        if (!$updated) {
+            // Either session not found or helper already used
+            $session = GameSession::where('session_id', $request->session_id)->first();
+            if (!$session) {
+                return response()->json(['success' => false, 'message' => 'ไม่พบเซสชันเกม']);
+            }
             return response()->json(['success' => false, 'message' => 'ใช้ตัวช่วยนี้แล้ว']);
         }
-
-        // Mark helper as used
-        $session->update([$helperField => true]);
 
         $data = [];
         $message = '';
@@ -561,6 +573,10 @@ class GameController extends Controller
                     return response()->json(['success' => false, 'message' => 'ไม่พบข้อมูลเกม']);
                 }
 
+                $session = GameSession::where('session_id', $request->session_id)
+                    ->select(['current_question_index'])
+                    ->first();
+                    
                 $currentQuestionIndex = $session->current_question_index;
                 $questionData = $sessionData['questions'][$currentQuestionIndex];
 
@@ -595,6 +611,10 @@ class GameController extends Controller
                     return response()->json(['success' => false, 'message' => 'ไม่พบข้อมูลเกม']);
                 }
 
+                $session = GameSession::where('session_id', $request->session_id)
+                    ->select(['current_question_index'])
+                    ->first();
+                    
                 $currentQuestionIndex = $session->current_question_index;
                 $currentQuestionData = $sessionData['questions'][$currentQuestionIndex];
                 $shuffledCorrectAnswerLetter = $currentQuestionData['shuffled_correct_answer'];
@@ -801,6 +821,9 @@ class GameController extends Controller
             );
 
             Log::info('Leaderboard entry created/updated', ['leaderboard_id' => $leaderboard->id]);
+
+            // Clear leaderboard cache หลังจาก update
+            CacheService::clearLeaderboardCache($session->mode, $session->subject_id);
         } else {
             Log::info('Existing record has better score, not updating');
         }

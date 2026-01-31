@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\QuestionsImport;
 use App\Models\Question;
 use App\Models\Subject;
+use App\Services\CacheService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,16 +19,11 @@ class QuestionController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Question::with('subject');
+        $query = Question::with('subject:id,name'); // Eager load เฉพาะ columns ที่ต้องการ
 
         // Filter by subject
         if ($request->has('subject_id') && $request->subject_id != '') {
             $query->where('subject_id', $request->subject_id);
-        }
-
-        // Filter by difficulty
-        if ($request->has('difficulty') && $request->difficulty != '') {
-            $query->where('difficulty', $request->difficulty);
         }
 
         // Search
@@ -36,7 +32,7 @@ class QuestionController extends Controller
         }
 
         $questions = $query->paginate(15);
-        $subjects = Subject::all();
+        $subjects = CacheService::getAllSubjects(); // ใช้ cached subjects
 
         return view('admin.questions.index', compact('questions', 'subjects'));
     }
@@ -56,7 +52,7 @@ class QuestionController extends Controller
      */
     public function create(Request $request)
     {
-        $subjects = Subject::all();
+        $subjects = CacheService::getAllSubjects(); // ใช้ cached subjects
         $selectedSubject = $request->get('subject_id');
 
         return view('admin.questions.create', compact('subjects', 'selectedSubject'));
@@ -75,7 +71,6 @@ class QuestionController extends Controller
             'option_c' => 'required|string|max:255',
             'option_d' => 'required|string|max:255',
             'correct_answer' => 'required|in:option_a,option_b,option_c,option_d',
-            'difficulty' => 'required|in:easy,medium,hard',
             'image_path' => 'nullable|image|max:2048',
         ]);
 
@@ -88,6 +83,9 @@ class QuestionController extends Controller
         }
 
         Question::create($validated);
+
+        // Clear subject cache (เพราะ questions_count เปลี่ยน)
+        CacheService::clearSubjectCache();
 
         return redirect()->route('admin.questions.index')
             ->with('success', 'คำถามถูกสร้างเรียบร้อยแล้ว');
@@ -119,7 +117,7 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        $subjects = Subject::all();
+        $subjects = CacheService::getAllSubjects(); // ใช้ cached subjects
 
         return view('admin.questions.edit', compact('question', 'subjects'));
     }
@@ -137,7 +135,6 @@ class QuestionController extends Controller
             'option_c' => 'nullable|string|max:255',
             'option_d' => 'nullable|string|max:255',
             'correct_answer' => 'required|in:option_a,option_b,option_c,option_d',
-            'difficulty' => 'required|in:easy,medium,hard',
             'explanation' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
             'remove_image' => 'boolean',
@@ -181,6 +178,9 @@ class QuestionController extends Controller
         }
 
         $question->delete();
+
+        // Clear subject cache (เพราะ questions_count เปลี่ยน)
+        CacheService::clearSubjectCache();
 
         return redirect()->route('admin.questions.index')
             ->with('success', 'คำถามถูกลบเรียบร้อยแล้ว');

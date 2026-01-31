@@ -14,14 +14,12 @@ class Question extends Model
         'option_c',
         'option_d',
         'correct_answer',
-        'difficulty',
         'image_path',
         'status',
     ];
 
     protected $casts = [
         'correct_answer' => 'string',
-        'difficulty' => 'string',
         'status' => 'boolean',
     ];
 
@@ -124,11 +122,6 @@ class Question extends Model
         $shuffledData = $this->getShuffledOptionsAndCorrectAnswer();
 
         return $shuffledData['correct_answer'];
-    }
-
-    public function scopeByDifficulty($query, $difficulty)
-    {
-        return $query->where('difficulty', $difficulty);
     }
 
     public function scopeActive($query)

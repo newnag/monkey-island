@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('players', function (Blueprint $table) {
-            $table->string('nickname')->nullable()->after('player_code');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropColumn('difficulty');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('players', function (Blueprint $table) {
-            $table->dropColumn('nickname');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->enum('difficulty', ['easy', 'medium', 'hard'])->default('medium')->after('correct_answer');
         });
     }
 };

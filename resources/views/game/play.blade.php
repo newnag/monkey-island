@@ -5,10 +5,10 @@
     <div class="max-w-2xl w-full">
         <!-- Header -->
         <div class="text-center mb-8">
-            <a href="{{ route('home') }}" class="inline-block text-white hover:text-gray-200 mb-4">
+            <a href="{{ route('home') }}" class="inline-block text-indigo-600 hover:text-indigo-800 mb-4">
                 ← กลับหน้าแรก
             </a>
-            <h1 class="text-4xl font-bold text-white mb-2">
+            <h1 class="text-4xl font-bold text-gray-800 mb-2">
                 @switch($mode)
                     @case('single')
                         🎯 Single Mode
@@ -24,7 +24,7 @@
                         @break
                 @endswitch
             </h1>
-            <p class="text-white opacity-80">
+            <p class="text-gray-600">
                 @switch($mode)
                     @case('single')
                         ทำข้อสอบ 10 ข้อ เหมาะสำหรับฝึกฝน
@@ -43,8 +43,8 @@
         </div>
 
         <!-- Subject Selection -->
-        <div class="card-game rounded-2xl p-8">
-            <h2 class="text-2xl font-bold text-white mb-6 text-center">เลือกวิชาที่ต้องการทำข้อสอบ</h2>
+        <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">เลือกวิชาที่ต้องการทำข้อสอบ</h2>
             
             <form id="start-game-form" class="space-y-4">
                 @csrf
@@ -64,14 +64,14 @@
                         @if($subject->questions_count >= $requiredQuestions)
                             <label class="block">
                                 <input type="radio" name="subject_id" value="{{ $subject->id }}" class="sr-only" required>
-                                <div class="subject-card cursor-pointer p-4 rounded-lg border-2 border-transparent bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-300">
+                                <div class="subject-card cursor-pointer p-4 rounded-lg border-2 border-gray-200 bg-gray-50 hover:bg-indigo-50 hover:border-indigo-300 transition-all duration-300">
                                     <div class="flex items-center justify-between">
                                         <div>
-                                            <h3 class="text-lg font-bold text-white">{{ $subject->name }}</h3>
+                                            <h3 class="text-lg font-bold text-gray-800">{{ $subject->name }}</h3>
                                             @if($subject->description)
-                                                <p class="text-white opacity-80 text-sm">{{ $subject->description }}</p>
+                                                <p class="text-gray-600 text-sm">{{ $subject->description }}</p>
                                             @endif
-                                            <p class="text-white opacity-70 text-xs mt-1">
+                                            <p class="text-gray-500 text-xs mt-1">
                                                 มีข้อสอบ {{ $subject->questions_count }} ข้อ
                                             </p>
                                         </div>
@@ -126,15 +126,15 @@
         </div>
 
         <!-- Game Rules -->
-        <div class="card-game rounded-2xl p-6 mt-6">
-            <h3 class="text-lg font-bold text-white mb-3">📋 กำราเล่น</h3>
-            <ul class="text-white opacity-80 text-sm space-y-1">
+        <div class="bg-white rounded-2xl p-6 mt-6 shadow-lg">
+            <h3 class="text-lg font-bold text-gray-800 mb-3">📋 กำราเล่น</h3>
+            <ul class="text-gray-600 text-sm space-y-1">
                 <li>• ตอบคำถามให้ถูกต้องภายในเวลาที่กำหนด</li>
                 <li>• มีตัวช่วย 4 ตัว ใช้ได้คนละครั้งเดียว</li>
                 <li>• คำตอบถูก = 1 คะแนน</li>
                 <li>• คำถามและตัวเลือกจะถูกสุ่มทุกครั้ง</li>
                 @if($mode === 'ranking')
-                    <li>• โหมด Ranking จะบันทึกคะแนนเข้าระบบอันดับ</li>
+                    <li class="text-indigo-600 font-medium">• โหมด Ranking จะบันทึกคะแนนเข้าระบบอันดับ</li>
                 @endif
             </ul>
         </div>
@@ -167,16 +167,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateSelection() {
         // Remove selected class from all cards
         subjectCards.forEach(card => {
-            card.classList.remove('border-green-400', 'bg-opacity-40');
-            card.classList.add('border-transparent', 'bg-opacity-20');
+            card.classList.remove('border-indigo-500', 'bg-indigo-100');
+            card.classList.add('border-gray-200', 'bg-gray-50');
         });
 
         // Add selected class to selected card
         const selectedRadio = document.querySelector('input[name="subject_id"]:checked');
         if (selectedRadio) {
             const selectedCard = selectedRadio.parentElement.querySelector('.subject-card');
-            selectedCard.classList.remove('border-transparent', 'bg-opacity-20');
-            selectedCard.classList.add('border-green-400', 'bg-opacity-40');
+            selectedCard.classList.remove('border-gray-200', 'bg-gray-50');
+            selectedCard.classList.add('border-indigo-500', 'bg-indigo-100');
             startButton.disabled = false;
         } else {
             startButton.disabled = true;

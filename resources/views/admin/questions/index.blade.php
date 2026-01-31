@@ -17,16 +17,9 @@
     
     .glass-card {
         background: rgba(255,255,255,0.95);
-        backdrop-filter: blur(20px);
         border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.3);
         box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .glass-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
     }
     
     .btn-modern {
@@ -37,7 +30,6 @@
         color: white;
         font-weight: 600;
         text-transform: none;
-        transition: all 0.3s ease;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
@@ -46,8 +38,6 @@
     
     .btn-modern:hover {
         background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
         color: white;
         text-decoration: none;
     }
@@ -58,7 +48,6 @@
     
     .btn-success-modern:hover {
         background: linear-gradient(135deg, #047857 0%, #065f46 100%);
-        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
     }
     
     .table-modern {
@@ -74,8 +63,6 @@
     
     .table-modern tbody tr:hover {
         background: rgba(59, 130, 246, 0.05);
-        transform: scale(1.01);
-        transition: all 0.2s ease;
     }
     
     .badge-modern {
@@ -87,7 +74,6 @@
     
     .filter-section {
         background: rgba(255,255,255,0.9);
-        backdrop-filter: blur(10px);
         border-radius: 15px;
         padding: 20px;
         margin-bottom: 20px;
@@ -167,7 +153,7 @@
                     <!-- Filters Section -->
                     <div class="filter-section">
                         <div class="row g-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label class="form-label text-primary fw-bold">
                                     <i class="fas fa-book me-2"></i>กรองตามวิชา
                                 </label>
@@ -176,17 +162,6 @@
                                     @foreach($subjects as $subject)
                                         <option value="{{ $subject->name }}">{{ $subject->name }}</option>
                                     @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label text-primary fw-bold">
-                                    <i class="fas fa-chart-line me-2"></i>กรองตามความยาก
-                                </label>
-                                <select id="difficulty-filter" class="form-select">
-                                    <option value="">-- ทุกระดับ --</option>
-                                    <option value="ง่าย">🟢 ง่าย</option>
-                                    <option value="ปานกลาง">🟡 ปานกลาง</option>
-                                    <option value="ยาก">🔴 ยาก</option>
                                 </select>
                             </div>
                         </div>
@@ -205,9 +180,6 @@
                                     </th>
                                     <th scope="col" class="text-center">
                                         <i class="fas fa-check-circle me-2"></i>คำตอบที่ถูก
-                                    </th>
-                                    <th scope="col" class="text-center">
-                                        <i class="fas fa-chart-line me-2"></i>ความยาก
                                     </th>
                                     <th scope="col" class="text-center" data-orderable="false">
                                         <i class="fas fa-cogs me-2"></i>การดำเนินการ
@@ -236,15 +208,6 @@
                                             <span class="badge bg-primary badge-modern">
                                                 {{ strtoupper(str_replace('option_', '', $question->correct_answer)) }}
                                             </span>
-                                        </td>
-                                        <td class="text-center">
-                                            @if($question->difficulty === 'easy')
-                                                <span class="badge bg-success badge-modern">🟢 ง่าย</span>
-                                            @elseif($question->difficulty === 'medium')
-                                                <span class="badge bg-warning badge-modern">🟡 ปานกลาง</span>
-                                            @else
-                                                <span class="badge bg-danger badge-modern">🔴 ยาก</span>
-                                            @endif
                                         </td>
                                         <td class="text-center">
                                             <div class="btn-group" role="group">
@@ -281,8 +244,8 @@
                                 <small class="text-muted">วิชาทั้งหมด</small>
                             </div>
                             <div class="col-md-4">
-                                <div class="fw-bold text-info h4">{{ $questions->where('difficulty', 'easy')->count() }}</div>
-                                <small class="text-muted">ข้อสอบง่าย</small>
+                                <div class="fw-bold text-info h4">{{ $questions->total() }}</div>
+                                <small class="text-muted">ข้อสอบทั้งหมด</small>
                             </div>
                         </div>
                     </div>
@@ -402,35 +365,34 @@ $(document).ready(function() {
         lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "ทั้งหมด"]],
         columnDefs: [
             { 
-                targets: [4], // การดำเนินการ column (index 4 now instead of 5)
-                orderable: false,
-                searchable: false
+                orderable: false, 
+                targets: [3] // Actions column
             }
         ],
         order: [[0, 'asc']],
         buttons: [
             {
                 extend: 'excel',
-                text: '<i class="fas fa-file-excel me-2"></i>Export Excel',
+                text: '<i class="fas fa-file-excel"></i> Excel',
                 className: 'btn btn-success btn-sm',
                 exportOptions: {
-                    columns: [0, 1, 2, 3] // ไม่รวมคอลัมน์การดำเนินการ
+                    columns: [0, 1, 2]
                 }
             },
             {
                 extend: 'pdf',
-                text: '<i class="fas fa-file-pdf me-2"></i>Export PDF',
+                text: '<i class="fas fa-file-pdf"></i> PDF',
                 className: 'btn btn-danger btn-sm',
                 exportOptions: {
-                    columns: [0, 1, 2, 3]
+                    columns: [0, 1, 2]
                 }
             },
             {
                 extend: 'print',
-                text: '<i class="fas fa-print me-2"></i>พิมพ์',
+                text: '<i class="fas fa-print"></i> Print',
                 className: 'btn btn-info btn-sm',
                 exportOptions: {
-                    columns: [0, 1, 2, 3]
+                    columns: [0, 1, 2]
                 }
             }
         ]
@@ -442,22 +404,11 @@ $(document).ready(function() {
         table.column(0).search(val).draw();
     });
 
-    $('#difficulty-filter').on('change', function() {
-        var val = this.value;
-        table.column(3).search(val).draw();
-    });
-
     // Modern modal trigger
     $('[onclick*="import-modal"]').off('click').on('click', function(e) {
         e.preventDefault();
         $('#import-modal').modal('show');
     });
-    
-    // Table hover effects
-    $('.table-modern tbody tr').hover(
-        function() { $(this).addClass('shadow-sm'); },
-        function() { $(this).removeClass('shadow-sm'); }
-    );
     
     // Tooltip initialization
     $('[title]').tooltip();

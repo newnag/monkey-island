@@ -5,21 +5,18 @@
 @push('styles')
 <!-- SweetAlert2 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.css">
-<!-- AOS Animation -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 <!-- Custom Styles -->
 <style>
 /* Modern Design Variables */
 :root {
     --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-    --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --success-gradient: linear-gradient(135deg, #48c9b0 0%, #16a085 100%);
+    --warning-gradient: linear-gradient(135deg, #f7d794 0%, #f39c12 100%);
     --danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
     --info-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
     --card-shadow: 0 15px 40px rgba(0,0,0,0.1);
     --card-hover-shadow: 0 25px 60px rgba(0,0,0,0.15);
     --border-radius: 20px;
-    --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 body {
@@ -31,24 +28,16 @@ body {
 /* Main Container */
 .main-container {
     background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(20px);
     border-radius: var(--border-radius);
     border: 1px solid rgba(255,255,255,0.2);
     box-shadow: var(--card-shadow);
     overflow: hidden;
     margin: 20px;
-    transition: var(--transition);
-}
-
-.main-container:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--card-hover-shadow);
 }
 
 /* Header Styling */
 .glass-header {
     background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
-    backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.2);
     padding: 30px;
     color: white;
@@ -72,13 +61,11 @@ body {
 /* Glass Form Sections */
 .glass-section {
     background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(20px);
     border-radius: var(--border-radius);
     padding: 35px;
     margin-bottom: 25px;
     border: 1px solid rgba(255,255,255,0.3);
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: var(--transition);
     position: relative;
     overflow: hidden;
 }
@@ -92,11 +79,6 @@ body {
     height: 5px;
     background: var(--primary-gradient);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
-
-.glass-section:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
 }
 
 .section-icon {
@@ -129,7 +111,6 @@ body {
     border-radius: 15px;
     padding: 15px 20px;
     font-size: 1rem;
-    transition: var(--transition);
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
@@ -137,7 +118,6 @@ body {
     background: white;
     border-color: #667eea;
     box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
-    transform: translateY(-2px);
 }
 
 .modern-label {
@@ -160,7 +140,6 @@ body {
     resize: vertical;
     font-size: 1.1rem;
     line-height: 1.7;
-    transition: var(--transition);
     box-shadow: inset 0 5px 15px rgba(0,0,0,0.05);
 }
 
@@ -175,20 +154,13 @@ body {
     background: var(--primary-gradient);
     color: white;
     padding: 8px 16px;
-    border-radius: 25px;
+    border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 600;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
 }
 
 /* Image Upload Area */
@@ -198,35 +170,14 @@ body {
     padding: 50px;
     text-align: center;
     background: linear-gradient(135deg, #f8faff 0%, #e8f4fd 100%);
-    transition: var(--transition);
     cursor: pointer;
     position: relative;
     overflow: hidden;
 }
 
-.upload-zone::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
-    transition: var(--transition);
-    opacity: 0;
-    pointer-events: none;
-}
-
 .upload-zone:hover {
     border-color: #667eea;
     background: linear-gradient(135deg, #e8f4fd 0%, #f8faff 100%);
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-}
-
-.upload-zone:hover::after {
-    opacity: 1;
-    animation: shimmer 2s infinite;
 }
 
 @keyframes shimmer {
@@ -522,7 +473,7 @@ body {
                     
                     <div style="padding: 30px;">
                         @if($errors->any())
-                        <div class="modern-alert alert-dismissible fade show mb-4" data-aos="shake">
+                        <div class="modern-alert alert-dismissible fade show mb-4">
                             <div class="d-flex align-items-center mb-3">
                                 <i class="fas fa-exclamation-triangle fa-2x text-danger mr-3"></i>
                                 <h5 class="mb-0 font-weight-bold">กรุณาแก้ไขข้อผิดพลาดต่อไปนี้:</h5>
@@ -539,7 +490,7 @@ body {
                         @endif
 
                         <!-- Basic Information Section -->
-                        <div class="glass-section" data-aos="fade-up" data-aos-delay="100">
+                        <div class="glass-section">
                             <h3 class="section-title">
                                 <div class="section-icon">
                                     <i class="fas fa-info-circle"></i>
@@ -564,32 +515,11 @@ body {
                                     <div class="text-danger mt-2"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</div>
                                     @enderror
                                 </div>
-
-                                <div class="col-lg-6 mb-4">
-                                    <label class="modern-label">
-                                        <i class="fas fa-chart-line text-warning"></i>
-                                        ระดับความยาก
-                                    </label>
-                                    <select name="difficulty" id="difficulty" class="form-control modern-input @error('difficulty') is-invalid @enderror">
-                                        <option value="easy" {{ old('difficulty', $question->difficulty) == 'easy' ? 'selected' : '' }}>
-                                            🟢 ง่าย
-                                        </option>
-                                        <option value="medium" {{ old('difficulty', $question->difficulty) == 'medium' ? 'selected' : '' }}>
-                                            🟡 ปานกลาง
-                                        </option>
-                                        <option value="hard" {{ old('difficulty', $question->difficulty) == 'hard' ? 'selected' : '' }}>
-                                            🔴 ยาก
-                                        </option>
-                                    </select>
-                                    @error('difficulty')
-                                    <div class="text-danger mt-2"><i class="fas fa-exclamation-circle mr-1"></i>{{ $message }}</div>
-                                    @enderror
-                                </div>
                             </div>
                         </div>
 
                         <!-- Question Content Section -->
-                        <div class="glass-section" data-aos="fade-up" data-aos-delay="200">
+                        <div class="glass-section">
                             <h3 class="section-title">
                                 <div class="section-icon">
                                     <i class="fas fa-question-circle"></i>
@@ -839,18 +769,11 @@ body {
 @push('scripts')
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.0/dist/sweetalert2.min.js"></script>
-<!-- AOS Animation -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <!-- Custom JavaScript -->
 <script>
 $(document).ready(function() {
-    // Initialize AOS
-    AOS.init({
-        duration: 800,
-        once: true
-    });
 
-    // Character counter with animation
+    // Character counter
     function updateCharCount() {
         const count = $('#question_text').val().length;
         $('#char-count').text(count);
@@ -868,7 +791,7 @@ $(document).ready(function() {
     $('#question_text').on('input', updateCharCount);
     updateCharCount();
 
-    // Enhanced image upload with preview
+    // Image upload with preview
     $('#imageUploadArea').click(function() {
         $('#image').click();
     });

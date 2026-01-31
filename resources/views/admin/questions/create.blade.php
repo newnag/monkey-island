@@ -96,20 +96,6 @@
                     @enderror
                 </div>
 
-                <!-- Difficulty -->
-                <div>
-                    <label for="difficulty" class="block text-sm font-medium text-gray-700 dark:text-gray-300">ระดับความยาก</label>
-                    <select name="difficulty" id="difficulty" required
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                        <option value="easy" {{ old('difficulty', 'medium') === 'easy' ? 'selected' : '' }}>ง่าย</option>
-                        <option value="medium" {{ old('difficulty', 'medium') === 'medium' ? 'selected' : '' }}>ปานกลาง</option>
-                        <option value="hard" {{ old('difficulty', 'medium') === 'hard' ? 'selected' : '' }}>ยาก</option>
-                    </select>
-                    @error('difficulty')
-                        <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
-                    @enderror
-                </div>
-
                 <!-- Image Upload -->
                 <div>
                     <label for="image_path" class="block text-sm font-medium text-gray-700 dark:text-gray-300">รูปภาพประกอบ (ถ้ามี)</label>

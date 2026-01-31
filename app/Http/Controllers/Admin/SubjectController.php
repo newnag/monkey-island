@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
+use App\Services\CacheService;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -39,6 +40,9 @@ class SubjectController extends Controller
         ]);
 
         Subject::create($validated);
+
+        // Clear subject cache
+        CacheService::clearSubjectCache();
 
         return redirect()->route('admin.subjects.index')
             ->with('success', 'วิชาถูกสร้างเรียบร้อยแล้ว');
@@ -76,6 +80,9 @@ class SubjectController extends Controller
 
         $subject->update($validated);
 
+        // Clear subject cache
+        CacheService::clearSubjectCache();
+
         return redirect()->route('admin.subjects.index')
             ->with('success', 'วิชาถูกอัปเดตเรียบร้อยแล้ว');
     }
@@ -91,6 +98,9 @@ class SubjectController extends Controller
         }
 
         $subject->delete();
+
+        // Clear subject cache
+        CacheService::clearSubjectCache();
 
         return redirect()->route('admin.subjects.index')
             ->with('success', 'วิชาถูกลบเรียบร้อยแล้ว');

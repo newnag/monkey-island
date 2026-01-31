@@ -34,13 +34,13 @@ class GameQuestion {
 
                 // Remove previous selection
                 options.forEach(opt => {
-                    opt.classList.remove('border-primary', 'bg-primary/20');
+                    opt.classList.remove('selected', 'border-primary', 'bg-primary/20');
                     opt.classList.add('border-gray-200');
                 });
 
                 // Select new option
                 option.classList.remove('border-gray-200');
-                option.classList.add('border-primary', 'bg-primary/20');
+                option.classList.add('selected');
                 
                 this.selectedAnswer = option.dataset.answer;
                 submitBtn.disabled = false;
@@ -72,8 +72,13 @@ class GameQuestion {
         });
 
         quitBtn.addEventListener('click', () => {
-            if (confirm('คุณต้องการออกจากเกมหรือไม่?')) {
-                this.quitGame();
+            const quitModal = document.getElementById('quit-confirm-modal');
+            if (quitModal) {
+                quitModal.showModal();
+            } else {
+                if (confirm('คุณต้องการออกจากเกมหรือไม่?')) {
+                    this.quitGame();
+                }
             }
         });
     }
@@ -105,17 +110,18 @@ class GameQuestion {
 
     startTimer() {
         const timerElement = document.getElementById('time-left');
+        const timerContainer = document.getElementById('timer');
         
         this.timerInterval = setInterval(() => {
             this.timeLeft--;
             timerElement.textContent = this.timeLeft;
             
             // Change color when time is running out
-            const timerContainer = document.getElementById('timer');
             if (this.timeLeft <= 10) {
-                timerContainer.classList.add('animate-pulse');
-                timerContainer.classList.remove('text-error');
-                timerContainer.classList.add('text-red-600');
+                timerContainer.classList.add('timer-warning');
+                timerContainer.classList.remove('timer-bg');
+                timerContainer.classList.add('timer-danger');
+                timerElement.classList.add('text-red-600');
             }
             
             // Time's up
@@ -198,19 +204,36 @@ class GameQuestion {
     }
 
     applyFiftyFifty(hiddenOptions) {
-        const options = document.querySelectorAll('.answer-option');
-        
         hiddenOptions.forEach(optionKey => {
             const option = document.querySelector(`[data-answer="${optionKey}"]`);
             if (option) {
-                option.style.opacity = '0.3';
+                option.classList.add('disabled-option');
                 option.disabled = true;
-                option.classList.add('pointer-events-none');
             }
         });
     }
 
     showAudienceModal(percentages) {
+        const modal = document.getElementById('audience-modal');
+        
+        // Update the percentage bars
+        Object.entries(percentages).forEach(([option, percentage]) => {
+            const letter = option.replace('option_', '');
+            const bar = document.querySelector(`[data-audience-bar="${letter}"]`);
+            const percentLabel = document.querySelector(`[data-audience-percent="${letter}"]`);
+            
+            if (bar) {
+                bar.style.width = `${percentage}%`;
+            }
+            if (percentLabel) {
+                percentLabel.textContent = `${percentage}%`;
+            }
+        });
+        
+        modal.showModal();
+    }
+
+    showAudienceModalOld(percentages) {
         const modal = document.getElementById('audience-modal');
         const chartContainer = modal.querySelector('#audience-chart');
         
@@ -261,9 +284,26 @@ class GameQuestion {
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>กำลังตรวจสอบ...';
         
-        // Disable all options
-        document.querySelectorAll('.answer-option').forEach(option => {
-            option.disabled = true;
+        // Disable all options immediately
+        const options = document.querySelectorAll('.answer-option');
+        options.forEach(option => {
+            option.style.pointerEvents = 'none';
+        });
+        
+        // Show immediate visual feedback (optimistic UI)
+        const correctAnswer = window.gameData.correctAnswer;
+        const isCorrect = this.selectedAnswer === correctAnswer;
+        
+        // Pre-render correct/wrong styling while waiting for server
+        options.forEach(option => {
+            const answer = option.dataset.answer;
+            if (answer === correctAnswer) {
+                option.classList.remove('selected');
+                option.classList.add('correct');
+            } else if (answer === this.selectedAnswer && !isCorrect) {
+                option.classList.remove('selected');
+                option.classList.add('wrong');
+            }
         });
         
         try {
@@ -271,7 +311,8 @@ class GameQuestion {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': window.gameData.csrfToken
+                    'X-CSRF-TOKEN': window.gameData.csrfToken,
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     session_id: window.gameData.sessionId,
@@ -285,7 +326,8 @@ class GameQuestion {
             const data = await response.json();
             
             if (data.success) {
-                this.showAnswerResult(data);
+                // UI already updated optimistically, just show result modal
+                this.showAnswerResultFast(data);
             } else {
                 this.showMessage('เกิดข้อผิดพลาด', data.message, 'error');
             }
@@ -294,42 +336,41 @@ class GameQuestion {
         }
     }
 
-    showAnswerResult(data) {
-        const correctAnswer = window.gameData.correctAnswer;
-        const options = document.querySelectorAll('.answer-option');
+    showAnswerResultFast(data) {
+        // Update score with animation
+        const scoreEl = document.getElementById('current-score');
+        const oldScore = parseInt(scoreEl.textContent);
+        const newScore = data.total_score;
         
-        // Show correct/incorrect answers
-        options.forEach(option => {
-            const answer = option.dataset.answer;
-            
-            if (answer === correctAnswer) {
-                option.classList.add('border-green-500', 'bg-green-100');
-                option.querySelector('.option-label').classList.add('bg-green-500');
-            } else if (answer === this.selectedAnswer) {
-                option.classList.add('border-red-500', 'bg-red-100');
-                option.querySelector('.option-label').classList.add('bg-red-500');
-            }
-        });
+        if (data.correct && newScore > oldScore) {
+            this.animateScore(scoreEl, oldScore, newScore);
+        } else {
+            scoreEl.textContent = newScore;
+        }
         
-        // Update score
-        document.getElementById('current-score').textContent = data.total_score;
-        
-        // Show result message
-        const message = data.correct ? 'ถูกต้อง!' : 'ผิด!';
-        const description = data.correct ? 
-            `ได้คะแนน +${data.points_earned}` : 
-            `คำตอบที่ถูกต้องคือ ${correctAnswer.replace('option_', '').toUpperCase()}`;
-        
-        this.showMessage(message, description, data.correct ? 'success' : 'error');
-        
-        // Go to next question or results
+        // Show result modal after short delay (reduced from 1000ms to 500ms)
         setTimeout(() => {
-            if (data.game_completed) {
-                window.location.href = `/game/results/${window.gameData.sessionId}`;
-            } else {
-                window.location.href = `/game/next-question/${window.gameData.sessionId}`;
+            this.showResultModal(data);
+        }, 500);
+    }
+    
+    animateScore(element, start, end) {
+        const duration = 500;
+        const startTime = performance.now();
+        
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            const current = Math.round(start + (end - start) * progress);
+            element.textContent = current;
+            
+            if (progress < 1) {
+                requestAnimationFrame(animate);
             }
-        }, 3000);
+        };
+        
+        requestAnimationFrame(animate);
     }
 
     quitGame() {
@@ -353,20 +394,35 @@ class GameQuestion {
     showMessage(title, description, type = 'info') {
         // Create toast notification
         const toast = document.createElement('div');
-        toast.className = `toast toast-top toast-center z-50`;
+        toast.className = `fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-slide-up`;
         
-        const alertClass = {
-            'success': 'alert-success',
-            'error': 'alert-error', 
-            'warning': 'alert-warning',
-            'info': 'alert-info'
-        }[type] || 'alert-info';
+        const styles = {
+            'success': {
+                bg: 'bg-gradient-to-r from-emerald-500 to-green-600',
+                icon: 'fa-check-circle'
+            },
+            'error': {
+                bg: 'bg-gradient-to-r from-red-500 to-rose-600',
+                icon: 'fa-times-circle'
+            },
+            'warning': {
+                bg: 'bg-gradient-to-r from-amber-500 to-orange-600',
+                icon: 'fa-exclamation-circle'
+            },
+            'info': {
+                bg: 'bg-gradient-to-r from-blue-500 to-indigo-600',
+                icon: 'fa-info-circle'
+            }
+        }[type] || { bg: 'bg-gradient-to-r from-blue-500 to-indigo-600', icon: 'fa-info-circle' };
         
         toast.innerHTML = `
-            <div class="alert ${alertClass}">
+            <div class="${styles.bg} text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 min-w-[280px]">
+                <div class="w-12 h-12 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center">
+                    <i class="fas ${styles.icon} text-2xl"></i>
+                </div>
                 <div>
-                    <h3 class="font-bold">${title}</h3>
-                    <div class="text-xs">${description}</div>
+                    <h3 class="font-bold text-lg">${title}</h3>
+                    <div class="text-sm text-white/90">${description}</div>
                 </div>
             </div>
         `;
@@ -374,8 +430,57 @@ class GameQuestion {
         document.body.appendChild(toast);
         
         setTimeout(() => {
-            toast.remove();
-        }, 3000);
+            toast.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+            setTimeout(() => toast.remove(), 300);
+        }, 2700);
+    }
+
+    showResultModal(data) {
+        const modal = document.getElementById('result-modal');
+        const header = document.getElementById('result-header');
+        const icon = document.getElementById('result-icon');
+        const title = document.getElementById('result-title');
+        const message = document.getElementById('result-message');
+        const scoreValue = document.getElementById('score-value');
+        const nextBtn = document.getElementById('next-question-btn');
+        const nextBtnText = document.getElementById('next-btn-text');
+        
+        if (data.correct) {
+            header.className = 'bg-gradient-to-r from-emerald-500 to-green-600 p-6 text-center';
+            icon.className = 'w-20 h-20 bg-white/20 backdrop-blur rounded-full flex items-center justify-center mx-auto mb-4 animate-scale-in';
+            icon.querySelector('i').className = 'fas fa-check text-white text-3xl';
+            title.className = 'font-bold text-2xl mb-2 text-white';
+            title.textContent = 'ถูกต้อง!';
+            message.className = 'text-lg text-emerald-100';
+            message.textContent = 'เยี่ยมมาก! คุณตอบถูก';
+            scoreValue.className = 'text-3xl font-bold text-emerald-600';
+            scoreValue.textContent = `+${data.points_earned}`;
+        } else {
+            header.className = 'bg-gradient-to-r from-red-500 to-rose-600 p-6 text-center';
+            icon.className = 'w-20 h-20 bg-white/20 backdrop-blur rounded-full flex items-center justify-center mx-auto mb-4 animate-scale-in';
+            icon.querySelector('i').className = 'fas fa-times text-white text-3xl';
+            title.className = 'font-bold text-2xl mb-2 text-white';
+            title.textContent = 'ผิด!';
+            message.className = 'text-lg text-red-100';
+            const correctLetter = data.correct_answer || window.gameData.correctAnswer.replace('option_', '').toUpperCase();
+            message.textContent = `คำตอบที่ถูกต้องคือ ${correctLetter}`;
+            scoreValue.className = 'text-3xl font-bold text-red-600';
+            scoreValue.textContent = '0';
+        }
+        
+        if (data.game_completed) {
+            nextBtnText.textContent = 'ดูผลลัพธ์';
+            nextBtn.onclick = () => {
+                window.location.href = `/game/results/${window.gameData.sessionId}`;
+            };
+        } else {
+            nextBtnText.textContent = 'คำถามถัดไป';
+            nextBtn.onclick = () => {
+                window.location.href = `/game/next-question/${window.gameData.sessionId}`;
+            };
+        }
+        
+        modal.showModal();
     }
 }
 

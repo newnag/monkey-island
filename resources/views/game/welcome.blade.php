@@ -11,15 +11,15 @@
             
             @if($playerNickname)
                 <div class="mb-4">
-                    <p class="text-white text-lg opacity-80">ยินดีต้อนรับกลับมา</p>
-                    <h2 class="text-3xl font-bold text-yellow-300 mb-2">🎮 {{ $playerNickname }}</h2>
+                    <p class="text-gray-600 text-lg">ยินดีต้อนรับกลับมา</p>
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-2">🎮 {{ $playerNickname }}</h2>
                 </div>
             @endif
             
-            <h1 class="text-6xl font-bold text-white mb-4">
+            <h1 class="text-6xl font-bold text-gray-800 mb-4">
                 🐵 Monkey Island Quiz
             </h1>
-            <p class="text-xl text-white opacity-90">
+            <p class="text-xl text-gray-600">
                 เว็บไซต์ทำข้อสอบที่สนุกและมีความรู้
             </p>
         </div>
@@ -27,10 +27,10 @@
         <!-- Game Modes -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <!-- Single Mode -->
-            <div class="card-game rounded-2xl p-6 text-center">
+            <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
                 <div class="text-4xl mb-4">🎯</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Single Mode</h3>
-                <p class="text-white opacity-80 mb-4">ทำข้อสอบ 10 ข้อ<br>เหมาะสำหรับฝึกฝน</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Single Mode</h3>
+                <p class="text-gray-600 mb-4">ทำข้อสอบ 10 ข้อ<br>เหมาะสำหรับฝึกฝน</p>
                 <a href="{{ route('game.play', 'single') }}" 
                    class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
                     เริ่มเล่น
@@ -38,10 +38,10 @@
             </div>
 
             <!-- Mixed Mode -->
-            <div class="card-game rounded-2xl p-6 text-center">
+            <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
                 <div class="text-4xl mb-4">🔥</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Mixed Mode</h3>
-                <p class="text-white opacity-80 mb-4">ทำข้อสอบ 20 ข้อ<br>คำถามหลากหลาย</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Mixed Mode</h3>
+                <p class="text-gray-600 mb-4">ทำข้อสอบ 20 ข้อ<br>คำถามหลากหลาย</p>
                 <a href="{{ route('game.play', 'mixed') }}" 
                    class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
                     เริ่มเล่น
@@ -49,10 +49,10 @@
             </div>
 
             <!-- Fun Mode -->
-            <div class="card-game rounded-2xl p-6 text-center">
+            <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
                 <div class="text-4xl mb-4">🎉</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Fun Mode</h3>
-                <p class="text-white opacity-80 mb-4">เล่นสนุก ๆ 15 ข้อ<br>ไม่นับคะแนน</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Fun Mode</h3>
+                <p class="text-gray-600 mb-4">เล่นสนุก ๆ 15 ข้อ<br>ไม่นับคะแนน</p>
                 <a href="{{ route('game.play', 'fun') }}" 
                    class="inline-block bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
                     เริ่มเล่น
@@ -60,10 +60,10 @@
             </div>
 
             <!-- Ranking Mode -->
-            <div class="card-game rounded-2xl p-6 text-center">
+            <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
                 <div class="text-4xl mb-4">🏆</div>
-                <h3 class="text-2xl font-bold text-white mb-3">Ranking Mode</h3>
-                <p class="text-white opacity-80 mb-4">แข่งขันจริงจัง 25 ข้อ<br>เข้าระบบอันดับ</p>
+                <h3 class="text-2xl font-bold text-gray-800 mb-3">Ranking Mode</h3>
+                <p class="text-gray-600 mb-4">แข่งขันจริงจัง 25 ข้อ<br>เข้าระบบอันดับ</p>
                 <a href="{{ route('game.play', 'ranking') }}" 
                    class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 transform hover:scale-105">
                     เริ่มเล่น
@@ -72,38 +72,38 @@
         </div>
 
         <!-- Features -->
-        <div class="card-game rounded-2xl p-6 mb-8">
-            <h3 class="text-2xl font-bold text-white mb-4 text-center">🎮 ฟีเจอร์ในเกม</h3>
+        <div class="bg-white rounded-2xl p-6 mb-8 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">🎮 ฟีเจอร์ในเกม</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="text-center">
                     <div class="text-2xl mb-2">💡</div>
-                    <p class="text-white text-sm">50:50<br><span class="opacity-70">ตัดตัวเลือก</span></p>
+                    <p class="text-gray-700 text-sm">50:50<br><span class="text-gray-500">ตัดตัวเลือก</span></p>
                 </div>
                 <div class="text-center">
                     <div class="text-2xl mb-2">👥</div>
-                    <p class="text-white text-sm">Ask Audience<br><span class="opacity-70">โหวตผู้ชม</span></p>
+                    <p class="text-gray-700 text-sm">Ask Audience<br><span class="text-gray-500">โหวตผู้ชม</span></p>
                 </div>
                 <div class="text-center">
                     <div class="text-2xl mb-2">⏰</div>
-                    <p class="text-white text-sm">Extra Time<br><span class="opacity-70">เพิ่มเวลา</span></p>
+                    <p class="text-gray-700 text-sm">Extra Time<br><span class="text-gray-500">เพิ่มเวลา</span></p>
                 </div>
                 <div class="text-center">
                     <div class="text-2xl mb-2">🔄</div>
-                    <p class="text-white text-sm">Skip Question<br><span class="opacity-70">ข้ามข้อ</span></p>
+                    <p class="text-gray-700 text-sm">Skip Question<br><span class="text-gray-500">ข้ามข้อ</span></p>
                 </div>
             </div>
         </div>
 
         <!-- Available Subjects -->
-        <div class="card-game rounded-2xl p-6">
-            <h3 class="text-2xl font-bold text-white mb-4 text-center">📚 วิชาที่เปิดให้เล่น</h3>
+        <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="text-2xl font-bold text-gray-800 mb-4 text-center">📚 วิชาที่เปิดให้เล่น</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 @foreach($subjects as $subject)
-                    <div class="bg-white bg-opacity-20 rounded-lg p-4 text-center">
-                        <h4 class="font-bold text-white mb-2">{{ $subject->name }}</h4>
-                        <p class="text-white opacity-80 text-sm mb-2">{{ $subject->questions_count }} ข้อสอบ</p>
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 text-center border border-indigo-100">
+                        <h4 class="font-bold text-gray-800 mb-2">{{ $subject->name }}</h4>
+                        <p class="text-gray-600 text-sm mb-2">{{ $subject->questions_count }} ข้อสอบ</p>
                         @if($subject->description)
-                            <p class="text-white opacity-70 text-xs">{{ Str::limit($subject->description, 50) }}</p>
+                            <p class="text-gray-500 text-xs">{{ Str::limit($subject->description, 50) }}</p>
                         @endif
                     </div>
                 @endforeach
@@ -140,8 +140,8 @@
         <!-- Player Info -->
         @if(Cookie::get('player_code'))
             <div class="text-center mt-6">
-                <p class="text-white opacity-70">
-                    รหัสผู้เล่น: <span class="font-bold">{{ Cookie::get('player_code') }}</span>
+                <p class="text-gray-500">
+                    รหัสผู้เล่น: <span class="font-bold text-gray-700">{{ Cookie::get('player_code') }}</span>
                 </p>
             </div>
         @endif

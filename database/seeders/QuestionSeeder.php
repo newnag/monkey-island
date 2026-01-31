@@ -23,7 +23,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'บ้าน',
                 'option_d' => 'น้ำ',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -33,7 +32,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เร็ว',
                 'option_d' => 'อ่าน',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -43,7 +41,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'คำคุณศัพท์',
                 'option_d' => 'คำวิเศษณ์',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -53,7 +50,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'คำคุณศัพท์',
                 'option_d' => 'คำสรรพนาม',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -63,7 +59,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'สวย',
                 'option_d' => 'เขียน',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -73,7 +68,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เร่ียน',
                 'option_d' => 'เรัียน',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -83,7 +77,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '3 พยางค์',
                 'option_d' => '4 พยางค์',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -93,7 +86,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '๊',
                 'option_d' => 'ไม่มีวรรณยุกต์',
                 'correct_answer' => 'd',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -103,7 +95,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'วิ่ง',
                 'option_d' => 'สวย',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 1,
@@ -113,7 +104,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เขา ไปโรงเรียน',
                 'option_d' => 'เขาไปโรง เรียน',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
 
             // Medium Level (10 ข้อ)
@@ -125,7 +115,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '3 พยางค์',
                 'option_d' => '4 พยางค์',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -135,7 +124,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ไปมา',
                 'option_d' => 'นั่งเล่น',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -145,7 +133,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ทาน',
                 'option_d' => 'รับประทาน',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -155,7 +142,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '๊',
                 'option_d' => '๋',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -165,7 +151,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'คำกริยา',
                 'option_d' => 'คำนาม',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -175,7 +160,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'อนาคด',
                 'option_d' => 'อนาขต',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -185,7 +169,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ไฟ',
                 'option_d' => 'วิ่ง',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -195,7 +178,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ฉันไปในโรงเรียน',
                 'option_d' => 'ทั้งหมดถูก',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -205,7 +187,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'จริง',
                 'option_d' => 'ใช่',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 1,
@@ -215,7 +196,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ใคร',
                 'option_d' => 'อะไร',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
 
             // Hard Level (10 ข้อ)
@@ -227,7 +207,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'แมวนั่งบนโต๊ะ',
                 'option_d' => 'ปลาว่ายในน้ำ',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -237,7 +216,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ล้มลง',
                 'option_d' => 'วิ่งหนี',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -247,7 +225,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'วารี',
                 'option_d' => 'ทั้งหมดถูก',
                 'correct_answer' => 'd',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -257,7 +234,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'กลับ',
                 'option_d' => 'หยุด',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -267,7 +243,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เรื่องปรัชญา',
                 'option_d' => 'เรื่องธรรมชาติ',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -277,7 +252,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'กาแฟ',
                 'option_d' => 'การ์ด',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -287,7 +261,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'โคลงสี่สุภาพ',
                 'option_d' => 'ทั้งหมดถูก',
                 'correct_answer' => 'd',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -297,7 +270,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เนื้อ',
                 'option_d' => 'โขลง',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -307,7 +279,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ร้อง',
                 'option_d' => 'ใส',
                 'correct_answer' => 'd',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 1,
@@ -317,7 +288,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'โกรธแค้น',
                 'option_d' => 'อดทน',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
 
             // คণิตศาสตร์ (Subject ID: 2) - 30 ข้อ
@@ -331,7 +301,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '8',
                 'option_d' => '9',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -341,7 +310,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '7',
                 'option_d' => '8',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -351,7 +319,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '12',
                 'option_d' => '13',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -361,7 +328,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '6',
                 'option_d' => '7',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -371,7 +337,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '16',
                 'option_d' => '17',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -381,7 +346,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '7',
                 'option_d' => '8',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -391,7 +355,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '12',
                 'option_d' => '13',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -401,7 +364,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '6',
                 'option_d' => '7',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -411,7 +373,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '14',
                 'option_d' => '15',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 2,
@@ -421,7 +382,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '7',
                 'option_d' => '8',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
 
             // Medium Level (10 ข้อ)
@@ -433,7 +393,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '98',
                 'option_d' => '100',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -443,7 +402,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '13',
                 'option_d' => '14',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -453,7 +411,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '62',
                 'option_d' => '63',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -463,7 +420,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '57',
                 'option_d' => '58',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -473,7 +429,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '63',
                 'option_d' => '64',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -483,7 +438,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '13',
                 'option_d' => '14',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -493,7 +447,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '73',
                 'option_d' => '74',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -503,7 +456,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '65',
                 'option_d' => '66',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -513,7 +465,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '48',
                 'option_d' => '49',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 2,
@@ -523,7 +474,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '9',
                 'option_d' => '10',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
 
             // Hard Level (10 ข้อ)
@@ -535,7 +485,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '36 ตารางเซนติเมตร',
                 'option_d' => '42 ตารางเซนติเมตร',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -545,7 +494,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '26 ตารางเซนติเมตร',
                 'option_d' => '28 ตารางเซนติเมตร',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -555,7 +503,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '158 ตารางเซนติเมตร',
                 'option_d' => '160 ตารางเซนติเมตร',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -565,7 +512,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '19',
                 'option_d' => '21',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -575,7 +521,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '12',
                 'option_d' => '13',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -585,7 +530,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '49',
                 'option_d' => '50',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -595,7 +539,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '7',
                 'option_d' => '8',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -605,7 +548,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '64 ลูกบาศก์เซนติเมตร',
                 'option_d' => '66 ลูกบาศก์เซนติเมตร',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -615,7 +557,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '0.80',
                 'option_d' => '0.85',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 2,
@@ -625,7 +566,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '7/8',
                 'option_d' => '8/8',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
 
             // วิทยาศาสตร์ (Subject ID: 3) - 30 ข้อ
@@ -639,7 +579,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'งู',
                 'option_d' => 'นก',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -649,7 +588,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ดาวหาง',
                 'option_d' => 'ดาวเทียม',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -659,7 +597,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เฉพาะต้นไม้ใหญ่',
                 'option_d' => 'เฉพาะพืชใบเขียว',
                 'correct_answer' => 'd',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -669,7 +606,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เหงือก',
                 'option_d' => 'หัวใจ',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -679,7 +615,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '24 ชั่วโมง',
                 'option_d' => '30 ชั่วโมง',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -689,7 +624,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ก๊าซ',
                 'option_d' => 'พลาสม่า',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -699,7 +633,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'น้ำเงิน',
                 'option_d' => 'เขียว',
                 'correct_answer' => 'd',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -709,7 +642,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ตับ',
                 'option_d' => 'ไต',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -719,7 +651,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เสือ',
                 'option_d' => 'หมาป่า',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 3,
@@ -729,7 +660,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ดวงอาทิตย์',
                 'option_d' => 'ดวงจันทร์',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
 
             // Medium Level (10 ข้อ)
@@ -741,7 +671,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '100 องศา',
                 'option_d' => '105 องศา',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -751,7 +680,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ไนโตรเจน',
                 'option_d' => 'น้ำ',
                 'correct_answer' => 'd',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -761,7 +689,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'โรคซีด',
                 'option_d' => 'โรคตาแห้ง',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -771,7 +698,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '10.0 m/s²',
                 'option_d' => '10.1 m/s²',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -781,7 +707,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'การระเหย',
                 'option_d' => 'การย่อย',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -791,7 +716,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'O3',
                 'option_d' => 'OH',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -801,7 +725,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '350 เมตร/วินาที',
                 'option_d' => '360 เมตร/วินาที',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -811,7 +734,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'โลก',
                 'option_d' => 'ดาวอังคาร',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -821,7 +743,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ไซโตพลาสซึม',
                 'option_d' => 'เมมเบรน',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 3,
@@ -831,7 +752,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ทองแดง',
                 'option_d' => 'อะลูมิเนียม',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
 
             // Hard Level (10 ข้อ)
@@ -843,7 +763,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ทองแดง',
                 'option_d' => 'อะลูมิเนียม',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -853,7 +772,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'กฎข้อที่ 3',
                 'option_d' => 'กฎข้อที่ 4',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -863,7 +781,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พันธะโลหะ',
                 'option_d' => 'พันธะไฮโดรเจน',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -873,7 +790,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Double nuclear acid',
                 'option_d' => 'Dynamic nucleic acid',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -883,7 +799,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'แอมิเลส',
                 'option_d' => 'ทริปซิน',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -893,7 +808,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ไนตรัสออกไซด์',
                 'option_d' => 'โอโซน',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -903,7 +817,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ปาสคาล',
                 'option_d' => 'วัตต์',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -913,7 +826,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'อิเล็กตรอน',
                 'option_d' => 'โฟตอน',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -923,7 +835,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '299,800,000 m/s',
                 'option_d' => '300,792,458 m/s',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 3,
@@ -933,7 +844,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ไซโตไคนีซิส',
                 'option_d' => 'อินเตอร์เฟส',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
 
             // สังคมศึกษา (Subject ID: 4) - 30 ข้อ
@@ -947,7 +857,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ขอนแก่น',
                 'option_d' => 'หาดใหญ่',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -957,7 +866,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '6 ภาค',
                 'option_d' => '7 ภาค',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -967,7 +875,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'แม่น้ำเจ้าพระยา',
                 'option_d' => 'แม่น้ำโขง',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -977,7 +884,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เยน',
                 'option_d' => 'ยูโร',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -987,7 +893,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '4 สี',
                 'option_d' => '5 สี',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -997,7 +902,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เมียนม่าร์',
                 'option_d' => 'เวียดนาม',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -1007,7 +911,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => '23 ตุลาคม',
                 'option_d' => '28 กรกฎาคม',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -1017,7 +920,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ภาคใต้',
                 'option_d' => 'ภาคตะวันออกเฉียงเหนือ',
                 'correct_answer' => 'd',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -1027,7 +929,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'กาญจนบุรี',
                 'option_d' => 'เพชรบูรณ์',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 4,
@@ -1037,7 +938,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ศาสนาอิสลาม',
                 'option_d' => 'ศาสนาฮินดู',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
 
             // Medium Level (10 ข้อ)
@@ -1049,7 +949,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ลาว',
                 'option_d' => 'ญวน',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1059,7 +958,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พ.ศ. 2320',
                 'option_d' => 'พ.ศ. 2330',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1069,7 +967,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'รัชกาลที่ 5',
                 'option_d' => 'รัชกาลที่ 6',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1079,7 +976,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'รัชกาลที่ 5',
                 'option_d' => 'รัชกาลที่ 6',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1089,7 +985,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'รัชกาลที่ 8',
                 'option_d' => 'รัชกาลที่ 9',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1099,7 +994,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'จอมพลแป้ก พิบูลสงคราม',
                 'option_d' => 'หม่อมเจ้าอำพนรรท์ กฤดากร',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1109,7 +1003,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'วัฒนธรรมลพบุรี',
                 'option_d' => 'วัฒนธรรมสุโขทัย',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1119,7 +1012,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'วัดสระศรี',
                 'option_d' => 'วัดสะพานหิน',
                 'correct_answer' => 'a',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1129,7 +1021,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พ.ศ. 2511',
                 'option_d' => 'พ.ศ. 2512',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 4,
@@ -1139,7 +1030,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'เอเชียใต้',
                 'option_d' => 'เอเชียกลาง',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
 
             // Hard Level (10 ข้อ)
@@ -1151,7 +1041,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'องค์ที่ 3',
                 'option_d' => 'องค์ที่ 4',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1161,7 +1050,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พระราชพิธีเผาพระศพ',
                 'option_d' => 'พระราชพิธีองค์ทรงกิต',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1171,7 +1059,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พระบรมไตรโลกนาถ',
                 'option_d' => 'พระบรมยามโสดร',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1181,7 +1068,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ญี่ปุ่น',
                 'option_d' => 'สหรัฐอเมริกา',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1191,7 +1077,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'ราชการแบบเดิม',
                 'option_d' => 'ราชการแบบใหม่',
                 'correct_answer' => 'd',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1201,7 +1086,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พ.ศ. 2546',
                 'option_d' => 'พ.ศ. 2547',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1211,7 +1095,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2477',
                 'option_d' => 'รัฐธรรมนูญแห่งราชอาณาจักรไทย พ.ศ. 2478',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1221,7 +1104,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'หลวงประดิษฐ์มนูธรรม',
                 'option_d' => 'นายแปลก ขุนคิตติ',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1231,7 +1113,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'พ.ศ. 2520',
                 'option_d' => 'พ.ศ. 2523',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 4,
@@ -1241,7 +1122,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'กรุงเทพมหานคร',
                 'option_d' => 'เมือง',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
 
             // ภาษาอังกฤษ (Subject ID: 5) - 30 ข้อ
@@ -1255,7 +1135,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Green',
                 'option_d' => 'Yellow',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1265,7 +1144,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Hello',
                 'option_d' => 'Sorry',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1275,7 +1153,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Bird',
                 'option_d' => 'Fish',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1285,7 +1162,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Seven',
                 'option_d' => 'Eight',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1295,7 +1171,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Tall',
                 'option_d' => 'Long',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1305,7 +1180,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'are',
                 'option_d' => 'be',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1315,7 +1189,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Three',
                 'option_d' => 'Four',
                 'correct_answer' => 'a',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1325,7 +1198,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Thank you',
                 'option_d' => 'Sorry',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1335,7 +1207,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Water',
                 'option_d' => 'Earth',
                 'correct_answer' => 'c',
-                'difficulty' => 'easy',
             ],
             [
                 'subject_id' => 5,
@@ -1345,7 +1216,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'are',
                 'option_d' => 'be',
                 'correct_answer' => 'b',
-                'difficulty' => 'easy',
             ],
 
             // Medium Level (10 ข้อ)
@@ -1357,7 +1227,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'went',
                 'option_d' => 'going',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1367,7 +1236,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'childrens',
                 'option_d' => 'child',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1377,7 +1245,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'He not like pizza.',
                 'option_d' => 'He no like pizza.',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1387,7 +1254,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'angry',
                 'option_d' => 'sad',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1397,7 +1263,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'joyful',
                 'option_d' => 'tired',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1407,7 +1272,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'am',
                 'option_d' => 'be',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1417,7 +1281,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'speed',
                 'option_d' => 'run',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1427,7 +1290,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'where',
                 'option_d' => 'the',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1437,7 +1299,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'went',
                 'option_d' => 'going',
                 'correct_answer' => 'c',
-                'difficulty' => 'medium',
             ],
             [
                 'subject_id' => 5,
@@ -1447,7 +1308,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'the',
                 'option_d' => 'none',
                 'correct_answer' => 'b',
-                'difficulty' => 'medium',
             ],
 
             // Hard Level (10 ข้อ)
@@ -1459,7 +1319,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'If I am rich, I would travel.',
                 'option_d' => 'If I will be rich, I would travel.',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1469,7 +1328,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'He said he would come the next day.',
                 'option_d' => 'He said he will come the next day.',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1479,7 +1337,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'The trees were beautiful as I walked down the street.',
                 'option_d' => 'I walked down the street and saw beautiful trees.',
                 'correct_answer' => 'a',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1489,7 +1346,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Relative clause',
                 'option_d' => 'Noun clause',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1499,7 +1355,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'beautifully',
                 'option_d' => 'None',
                 'correct_answer' => 'c',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1509,7 +1364,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'The meal is cooked by the chef.',
                 'option_d' => 'The meal has cooked by the chef.',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1519,7 +1373,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'I like to swim, running, and biking.',
                 'option_d' => 'I like swimming, to run, and biking.',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1529,7 +1382,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'French origin',
                 'option_d' => 'German origin',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1539,7 +1391,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'Personification',
                 'option_d' => 'Hyperbole',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
             [
                 'subject_id' => 5,
@@ -1549,7 +1400,6 @@ class QuestionSeeder extends Seeder
                 'option_c' => 'They mean the same thing',
                 'option_d' => 'There is no difference',
                 'correct_answer' => 'b',
-                'difficulty' => 'hard',
             ],
         ];
 

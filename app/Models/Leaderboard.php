@@ -45,24 +45,71 @@ class Leaderboard extends Model
 
     public static function updateRanks($subjectId = null, $mode = null)
     {
-        $query = self::query();
-
+        // ใช้ single query update แทนการ loop เพื่อ performance ที่ดีขึ้น
+        $table = (new self)->getTable();
+        
+        // Build conditions
+        $conditions = [];
+        $bindings = [];
+        
         if ($subjectId) {
-            $query->where('subject_id', $subjectId);
+            $conditions[] = 'subject_id = ?';
+            $bindings[] = $subjectId;
+        } else {
+            $conditions[] = 'subject_id IS NULL';
         }
-
+        
         if ($mode) {
-            $query->where('mode', $mode);
+            $conditions[] = 'mode = ?';
+            $bindings[] = $mode;
         }
-
-        $leaderboards = $query->orderByDesc('score')
-            ->orderBy('time_taken')
-            ->get();
-
-        $rank = 1;
-        foreach ($leaderboards as $leaderboard) {
-            $leaderboard->update(['rank' => $rank]);
-            $rank++;
+        
+        $whereClause = implode(' AND ', $conditions);
+        
+        // Use database-specific ranking query
+        $driver = \DB::getDriverName();
+        
+        if ($driver === 'mysql' || $driver === 'mariadb') {
+            // MySQL/MariaDB: Use user variables for ranking
+            \DB::statement('SET @rank := 0');
+            \DB::update("
+                UPDATE {$table} AS l1
+                JOIN (
+                    SELECT id, @rank := @rank + 1 AS new_rank
+                    FROM {$table}
+                    WHERE {$whereClause}
+                    ORDER BY score DESC, time_taken ASC
+                ) AS l2 ON l1.id = l2.id
+                SET l1.rank = l2.new_rank
+            ", $bindings);
+        } else {
+            // SQLite/PostgreSQL: Fallback to efficient batch update
+            $leaderboards = self::query()
+                ->when($subjectId, fn($q) => $q->where('subject_id', $subjectId))
+                ->when(!$subjectId, fn($q) => $q->whereNull('subject_id'))
+                ->when($mode, fn($q) => $q->where('mode', $mode))
+                ->orderByDesc('score')
+                ->orderBy('time_taken')
+                ->pluck('id')
+                ->toArray();
+            
+            if (!empty($leaderboards)) {
+                $cases = [];
+                $ids = [];
+                foreach ($leaderboards as $rank => $id) {
+                    $cases[] = "WHEN {$id} THEN " . ($rank + 1);
+                    $ids[] = $id;
+                }
+                
+                $caseStatement = implode(' ', $cases);
+                $idsString = implode(',', $ids);
+                
+                \DB::update("
+                    UPDATE {$table}
+                    SET rank = CASE id {$caseStatement} END
+                    WHERE id IN ({$idsString})
+                ");
+            }
         }
     }
 

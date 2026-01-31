@@ -25,21 +25,9 @@
                         <div class="col-md-8">
                             <!-- Basic Info -->
                             <div class="row mb-4">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <strong>วิชา:</strong>
                                     <span class="badge badge-primary">{{ $question->subject->name }}</span>
-                                </div>
-                                <div class="col-md-6">
-                                    <strong>ความยาก:</strong>
-                                    @php
-                                    $difficultyConfig = [
-                                        'easy' => ['label' => 'ง่าย', 'class' => 'badge-success'],
-                                        'medium' => ['label' => 'ปานกลาง', 'class' => 'badge-warning'],
-                                        'hard' => ['label' => 'ยาก', 'class' => 'badge-danger']
-                                    ];
-                                    $config = $difficultyConfig[$question->difficulty] ?? ['label' => $question->difficulty, 'class' => 'badge-secondary'];
-                                    @endphp
-                                    <span class="badge {{ $config['class'] }}">{{ $config['label'] }}</span>
                                 </div>
                             </div>
 
